@@ -1,0 +1,129 @@
+import { useEffect, useState } from 'react'
+import { useContext, createContext } from 'react'
+import axios from 'axios'
+import { useRouter } from 'next/router'
+import { toast } from 'react-toastify'
+
+const UserContext = createContext()
+
+export default function UserContextWrapper({ children }) {
+	const router = useRouter()
+
+	const [user, setUser] = useState(null)
+	const [jwt, setJwt] = useState(null)
+	const [isLoggedIn, setIsLoggedIn] = useState(false)
+	const [sectionsConfig, setSectionsConfig] = useState({
+		posters: false,
+		referrals: false,
+		feedback: false,
+		whatsapp: false,
+		leaderboard: false,
+		regOpen: true,
+		whatsappLink: '',
+	})
+
+	useEffect(() => {
+		let jwt = localStorage.getItem('jwt')
+		if (jwt) setAuthenticatedUser(jwt)
+	}, [])
+
+	useEffect(() => {
+		;(async () => {
+			const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/config`)
+			let temp = data.data.attributes
+			setSectionsConfig({
+				feedback: temp.feedback,
+				posters: temp.posters,
+				referrals: temp.referrals,
+				whatsapp: temp.joinWhatsappGroup,
+				leaderboard: temp.leaderboard,
+				regOpen: temp.regOpen,
+				whatsappLink: temp.whatsapp_link,
+			})
+		})()
+	}, [])
+
+	const setAuthenticatedUser = async (jwt) => {
+		try {
+			if (!jwt) return
+
+			const { data } = await axios.get(
+				`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/users-permissions/users/getMe`,
+				{
+					headers: {
+						Authorization: `Bearer ${jwt}`,
+					},
+				}
+			)
+
+			let currentUser = {
+				userId: data?.id,
+				caId: data?.caId,
+				name: data?.name,
+				email: data?.email,
+				refCode: data?.refCode,
+				points: data.totalPoints,
+				imageUrl: `/images/avatar.jpeg`,
+			}
+			localStorage.setItem('jwt', jwt)
+			setUser(currentUser)
+			setIsLoggedIn(true)
+			setJwt(jwt)
+			return currentUser
+		} catch (err) {
+			console.error(err)
+		}
+	}
+
+	function signIn() {
+		if (user === null) {
+			sessionStorage.setItem('redirectTo', '/dashboard/posters')
+			router.push(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/connect/google`)
+		} else if (user?.name) router.push('/dashboard/posters')
+		else {
+			if (sectionsConfig?.regOpen) router.push('/register')
+			else router.push('/regclosed')
+		}
+	}
+
+	function logout() {
+		setUser(null)
+		setIsLoggedIn(false)
+		localStorage.removeItem('jwt')
+		toast.success('Signed out successfully')
+		router.push('/')
+	}
+
+	function getUser() {
+		return new Promise(async (resolve, reject) => {
+			try {
+				let jwt = localStorage.getItem('jwt')
+				if (jwt) resolve(setAuthenticatedUser(jwt))
+				else resolve(null)
+			} catch (err) {
+				reject(err)
+			}
+		})
+	}
+
+	return (
+		<UserContext.Provider
+			value={{
+				user,
+				jwt,
+				isLoggedIn,
+				setAuthenticatedUser,
+				logout,
+				signIn,
+				getUser,
+				sectionsConfig,
+			}}
+		>
+			{children}
+		</UserContext.Provider>
+	)
+}
+
+export function useUserContext() {
+	return useContext(UserContext)
+}

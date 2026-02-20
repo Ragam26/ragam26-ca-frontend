@@ -1,0 +1,43 @@
+.page-2 {
+	background: linear-gradient(180deg, rgba(200, 74, 244, 0) 0%, #2ff3ff 61.98%, #ee2fff 100%);
+	background-size: 100% 60%;
+	background-repeat: no-repeat;
+	background-position: bottom;
+}
+
+.page-2-heading {
+	font-weight: 600;
+	margin-bottom: 2.5rem;
+	line-height: 1.1;
+}
+
+.page-2-cards-wrapper {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	gap: 3rem;
+}
+
+.page-2-card-wrapper {
+	flex: 1;
+	align-self: stretch;
+}
+
+@media (max-width: 1024px) {
+	.page-2-cards-wrapper {
+		grid-template-columns: 1fr 1fr;
+	}
+}
+
+@media (max-width: 600px) {
+	.page-2-cards-wrapper {
+		grid-template-columns: 1fr;
+	}
+}
+@media (max-width: 550px) {
+	.page-2 {
+		padding-bottom: 2rem;
+	}
+	.page-2-cards-wrapper {
+		padding-right: 0.75rem;
+	}
+}

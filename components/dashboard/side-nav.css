@@ -1,0 +1,86 @@
+.side-nav {
+	width: 100%;
+	padding: 1rem;
+}
+
+.user-wrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	padding-top: 2rem;
+}
+.user-avatar {
+	width: 90px;
+	height: 90px;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-color: rgba(255, 255, 255, 0.1);
+	border-radius: 50%;
+	margin: 0 auto;
+	margin-bottom: 0.25rem;
+}
+.user-name {
+	font-size: 1.125rem;
+	font-weight: 600;
+	margin-top: 0.5rem;
+	text-align: center;
+}
+.user-email {
+	text-align: center;
+	width: 90%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	color: rgba(255, 255, 255, 0.5);
+	margin: 0.25rem 0 0.5rem 0;
+}
+.user-points {
+	font-size: 0.9rem;
+	color: rgba(255, 255, 255, 0.8);
+	background: rgba(255, 255, 255, 0.1);
+	margin-top: 0.5rem;
+	padding: 0.25rem 0.75rem;
+	border-radius: 100px;
+}
+
+.edit-profile-button-wrapper {
+	padding: 2rem 0;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.edit-profile-button-wrapper button {
+	padding: 0.75rem 1.25rem;
+}
+
+.side-nav-links {
+	display: flex;
+	flex-direction: column;
+	font-weight: 600;
+}
+.side-nav-links a {
+	padding: 0.75rem 1rem;
+	border-radius: 0.5rem;
+	display: flex;
+	align-items: center;
+	line-height: 1.75;
+	transition: 0.1s ease all;
+	user-select: none;
+	margin-bottom: 0.75rem;
+}
+.side-nav-links a:hover {
+	background-color: rgba(255, 255, 255, 0.04);
+}
+.side-nav-links .active {
+	background-color: rgba(255, 255, 255, 0.08);
+}
+.side-nav-links .active:hover {
+	background-color: rgba(255, 255, 255, 0.08);
+}
+.side-nav-links img {
+	width: 1.25rem;
+	margin-right: 0.75rem;
+}

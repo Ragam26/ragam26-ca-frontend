@@ -1,0 +1,66 @@
+.register-form {
+	margin: 0 auto;
+	background: var(--card-bg);
+	width: 100%;
+	max-width: 480px;
+	border-radius: 0.75rem;
+	padding: 3.5rem;
+}
+
+.register-form-avatar-wrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	gap: 1.5rem;
+	margin-bottom: 1.5rem;
+}
+
+.register-form-email-wrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.25rem;
+}
+
+.register-form-email {
+	width: 100%;
+	text-align: center;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	color: rgba(255, 255, 255, 0.6);
+}
+
+.register-form-email-tag {
+	font-weight: 600;
+}
+
+.register-form-avatar {
+	width: 100px;
+	height: 100px;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-color: rgba(255, 255, 255, 0.1);
+	outline: 0.4rem solid rgba(255, 255, 255, 0.8);
+	border-radius: 50%;
+	margin: 0 auto;
+}
+
+.register-form-submit {
+	margin-top: 0.5rem;
+}
+
+@media (max-width: 768px) {
+}
+
+@media (max-width: 500px) {
+	.register-form {
+		padding: 1.5rem;
+	}
+	.register-form-avatar {
+		width: 80px;
+		height: 80px;
+		margin: 1rem 0;
+	}
+}

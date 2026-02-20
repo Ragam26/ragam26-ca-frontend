@@ -1,0 +1,89 @@
+.r-u-ready {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background: var(--card-bg);
+	padding: 2.25rem;
+	margin: 0 auto;
+	border-radius: 0.75rem;
+	width: 100%;
+	max-width: 900px;
+}
+
+.r-u-ready .left {
+	display: flex;
+	align-items: center;
+	position: relative;
+}
+
+.vic-icon {
+	height: 90px;
+	width: 90px;
+	animation: vic-shake 1.5s cubic-bezier(0.45, -0.01, 0, 1) infinite;
+}
+@keyframes vic-shake {
+	0% {
+		transform: rotate(-5deg);
+	}
+	30% {
+		transform: rotate(-5deg);
+	}
+	55% {
+		transform: rotate(10deg);
+	}
+	82% {
+		transform: rotate(-28deg);
+	}
+	100% {
+		transform: rotate(-5deg);
+	}
+}
+
+.r-u-ready h3 {
+	font-size: 2.25rem;
+	font-family: 'Clash Display', sans-serif;
+	font-weight: 600;
+}
+
+.r-u-ready p {
+	color: rgba(255, 255, 255, 0.7);
+}
+
+.r-u-ready-btn {
+	font-family: 'Clash Display', sans-serif;
+	font-weight: 500;
+	font-size: 1.25rem;
+}
+
+@media (max-width: 768px) {
+	.r-u-ready h3 {
+		font-size: 2rem;
+	}
+}
+
+@media (max-width: 658px) {
+	.r-u-ready,
+	.r-u-ready .left {
+		text-align: center;
+		flex-direction: column;
+	}
+
+	.r-u-ready {
+		max-width: 400px;
+	}
+
+	.vic-icon {
+		position: absolute;
+		bottom: 5.5rem;
+	}
+
+	.r-u-ready .left {
+		margin-bottom: 1rem;
+	}
+}
+@media (max-width: 550px) {
+	.r-u-ready {
+		margin-top: 1rem;
+		padding: 2rem 1.5rem;
+	}
+}

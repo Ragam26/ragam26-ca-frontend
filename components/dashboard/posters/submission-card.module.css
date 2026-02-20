@@ -1,0 +1,102 @@
+.submission-card {
+	--section-padding: 1rem;
+	border-radius: 0.5rem;
+	background-color: rgba(255, 255, 255, 0.05);
+}
+.submission-card > div {
+	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.submission-card > div:last-child {
+	border: none;
+}
+
+.header-wrapper {
+	padding: var(--section-padding);
+	display: flex;
+	align-items: center;
+}
+
+.poster-title {
+	font-size: 18px;
+	font-weight: 600;
+	line-height: 1.25;
+	color: #fff;
+}
+
+.poster-image {
+	width: 96px;
+	padding-top: 96px;
+	background-color: rgba(255, 255, 255, 0.1);
+	border-radius: 0.25rem;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.section {
+	padding: var(--section-padding);
+}
+.section-title {
+	font-size: 13px;
+	font-weight: 600;
+	text-transform: uppercase;
+	display: inline-block;
+	margin-bottom: 0.5rem;
+}
+
+.images-grid {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+}
+.image {
+	width: 80px;
+	height: 80px;
+	background-color: rgba(255, 255, 255, 0.1);
+	border-radius: 0.25rem;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.edit-button {
+	height: 40px;
+	padding-top: 0;
+	padding-bottom: 0;
+	background-color: transparent;
+	border: 1px solid rgba(255, 255, 255, 0.3);
+	color: #fff;
+	font-weight: 500;
+}
+
+.chip {
+	padding: 0.25rem 0.6rem 0.3rem 0.6rem;
+	background-color: rgb(0, 148, 30);
+	border-radius: 100px;
+	font-size: 14px;
+	height: fit-content;
+	font-weight: 500;
+}
+.rejected {
+	background-color: rgb(188, 0, 0);
+}
+.pending {
+	background-color: rgb(216, 191, 0);
+	color: #000;
+}
+
+.points {
+	padding: 0.15rem 0.3rem 0.22rem 0.3rem;
+	border-radius: 4px;
+	font-size: 14px;
+	align-self: center;
+	border: 1px solid #fff;
+}
+
+.point-status-wrapper {
+	margin-top: 0.5rem;
+	display: flex;
+	gap: 0.5rem;
+	align-items: center;
+	flex-wrap: wrap;
+}

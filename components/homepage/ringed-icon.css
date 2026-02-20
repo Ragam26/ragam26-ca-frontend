@@ -1,0 +1,71 @@
+.ringed-icon {
+	background-color: #000;
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100px;
+	height: 100px;
+}
+
+.ringed-icon .ring {
+	position: absolute;
+	border-radius: 50%;
+	background: linear-gradient(315deg, #cc01ff 0%, #7d3efe 44.79%, #37e7ff 100%);
+	box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+
+	animation-name: ringed-icon-scale;
+	animation-duration: 2s;
+	animation-timing-function: cubic-bezier(0.57, 0.18, 0.39, 0.8);
+	animation-iteration-count: infinite;
+}
+
+.ring:nth-child(1) {
+	width: 73px;
+	height: 73px;
+	animation-delay: 0s;
+}
+.ring:nth-child(2) {
+	width: 86px;
+	height: 86px;
+	animation-delay: 0.15s;
+}
+.ring:nth-child(3) {
+	width: 99px;
+	height: 99px;
+	animation-delay: 0.35s;
+}
+
+.ringed-icon .icon-wrapper {
+	background: linear-gradient(315deg, #cc01ff 0%, #7d3efe 44.79%, #37e7ff 100%);
+	box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+	padding: 0.5rem;
+	width: 58px;
+	height: 58px;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 15;
+}
+
+.ringed-icon .icon-wrapper > * {
+	font-size: 1.6rem;
+	color: #fff;
+	filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.2));
+}
+
+@keyframes ringed-icon-scale {
+	0% {
+		transform: scale(1);
+		opacity: 0.3;
+	}
+	50% {
+		transform: scale(1.1);
+		opacity: 0.35;
+	}
+	100% {
+		transform: scale(1);
+		opacity: 0.3;
+	}
+}

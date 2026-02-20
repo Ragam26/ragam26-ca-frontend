@@ -1,0 +1,93 @@
+.leaderboard {
+	margin: 0 auto;
+	background: var(--card-bg);
+	display: flex;
+	width: 100%;
+	min-height: 400px;
+	max-width: 1000px;
+	border-radius: 0.75rem;
+	flex-direction: column;
+	padding: 3rem;
+}
+
+.empty {
+	background-color: rgba(255, 255, 255, 0.01);
+	height: 150px;
+	border-radius: 0.75rem;
+	border: 1px dashed rgba(255, 255, 255, 0.15);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: rgba(255, 255, 255, 0.5);
+}
+
+.empty.empty-leaderboard {
+	height: 400px;
+}
+
+.leaderboard-loading-wrapper {
+	height: 400px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* PARTICIPANT */
+.participants-header {
+	display: flex;
+	align-items: center;
+	padding-bottom: 1rem;
+	border-bottom: 1px solid #202020;
+}
+.participants-header span {
+	font-family: 'Clash Display', sans-serif;
+	font-size: 1.125rem;
+	font-weight: 600;
+}
+.participant {
+	display: flex;
+	align-items: center;
+	color: rgba(255, 255, 255, 0.6);
+	padding: 1rem 0;
+	border-bottom: 1px solid #202020;
+}
+.p-rank,
+.p-name,
+.p-points {
+	flex-shrink: 0;
+}
+.p-rank {
+	flex: 1;
+}
+.p-name {
+	flex: 4;
+	width: 100%;
+	overflow: hidden;
+	padding: 0 1rem;
+}
+.p-points {
+	flex: 1;
+	text-align: right;
+}
+
+@media (max-width: 768px) {
+	.leaderboard {
+		padding: 2rem;
+	}
+	.participant {
+		padding: 0.75rem 0;
+	}
+}
+
+@media (max-width: 550px) {
+	.leaderboard {
+		padding: 1rem;
+	}
+	.participant {
+		padding: 0.75rem 0;
+		font-size: 0.875rem;
+	}
+	.participants-header span {
+		font-size: 1rem;
+	}
+}

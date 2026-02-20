@@ -1,0 +1,85 @@
+.referral-code {
+	background: rgba(255, 255, 255, 0.08);
+	width: fit-content;
+	border-radius: 0.75rem;
+	font-weight: 600;
+	display: flex;
+	align-items: center;
+}
+
+.referral-code div {
+	padding: 0.75rem 1rem;
+}
+
+.referral-code .code {
+	background: var(--primary);
+	border-radius: 0.5rem 0 0 0.5rem;
+}
+
+/* -------------------------------------------------------------------- */
+
+.referrals-points {
+	max-width: 500px;
+}
+.referrals-points h4,
+.referrals-points p {
+	margin-bottom: 1rem;
+}
+.referrals-points table {
+	background-color: rgba(255, 255, 255, 0.08);
+	padding: 1rem;
+	border-radius: 0.5rem;
+}
+.referrals-points table tr td {
+	padding: 0.25rem 0;
+}
+.referrals-points table tr td:first-child {
+	color: rgba(255, 255, 255, 0.5);
+	min-width: 180px;
+}
+
+/* -------------------------------------------------------------------- */
+
+.your-referrals h4 {
+	margin-bottom: 1rem;
+}
+.your-referrals-table-wrapper {
+	overflow-x: scroll;
+}
+.your-referrals-table {
+	width: 500px;
+}
+.your-referrals-table,
+.your-referrals-table td,
+.your-referrals-table th {
+	text-align: left;
+	border-collapse: collapse;
+	padding: 0.5rem 0.75rem;
+	border: 1px solid rgba(255, 255, 255, 0.15);
+}
+.your-referrals-table tr:nth-child(odd) {
+	background-color: rgba(255, 255, 255, 0.03);
+}
+.your-referrals-table th {
+	font-weight: 600;
+}
+.your-referrals-table td {
+	color: rgba(255, 255, 255, 0.6);
+}
+
+@media (max-width: 550px) {
+	.referral-code {
+		border-radius: 0.5rem;
+	}
+	.referral-code div {
+		padding: 0.75rem 1.25rem;
+	}
+	.referral-code .code {
+		border-radius: 0.5rem 0 0 0.5rem;
+	}
+
+	.your-referrals-table td,
+	.your-referrals-table th {
+		font-size: 0.875rem;
+	}
+}
