@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import { toast } from 'react-toastify'
 
 const UserContext = createContext()
+axios.defaults.withCredentials = true
 
 export default function UserContextWrapper({ children }) {
 	const router = useRouter()
@@ -17,7 +18,7 @@ export default function UserContextWrapper({ children }) {
 		referrals: false,
 		feedback: false,
 		whatsapp: false,
-		leaderboard: false,
+		leaderboard: true,
 		regOpen: true,
 		whatsappLink: '',
 	})
@@ -27,43 +28,42 @@ export default function UserContextWrapper({ children }) {
 		if (jwt) setAuthenticatedUser(jwt)
 	}, [])
 
-	useEffect(() => {
-		;(async () => {
-			const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/config`)
-			let temp = data.data.attributes
-			setSectionsConfig({
-				feedback: temp.feedback,
-				posters: temp.posters,
-				referrals: temp.referrals,
-				whatsapp: temp.joinWhatsappGroup,
-				leaderboard: temp.leaderboard,
-				regOpen: temp.regOpen,
-				whatsappLink: temp.whatsapp_link,
-			})
-		})()
-	}, [])
+	// useEffect(() => {
+	// 	;(async () => {
+	// 		const { data } = await axios.get('/api/config')
+	// 		let temp = data.data.attributes
+	// 		setSectionsConfig({
+	// 			feedback: temp.feedback,
+	// 			posters: temp.posters,
+	// 			referrals: temp.referrals,
+	// 			whatsapp: temp.joinWhatsappGroup,
+	// 			leaderboard: temp.leaderboard,
+	// 			regOpen: temp.regOpen,
+	// 			whatsappLink: temp.whatsapp_link,
+	// 		})
+	// 	})()
+	// }, [])
 
 	const setAuthenticatedUser = async (jwt) => {
 		try {
 			if (!jwt) return
 
-			const { data } = await axios.get(
-				`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/users-permissions/users/getMe`,
+			const { data } = await axios.post(
+				'/api/auth/verify',
+				{},
 				{
 					headers: {
 						Authorization: `Bearer ${jwt}`,
 					},
+					withCredentials: true,
 				}
 			)
 
 			let currentUser = {
-				userId: data?.id,
-				caId: data?.caId,
-				name: data?.name,
-				email: data?.email,
-				refCode: data?.refCode,
-				points: data.totalPoints,
-				imageUrl: `/images/avatar.jpeg`,
+				name: data.user.name,
+				email: data.user.email,
+				role: data.user.role,
+				imageUrl: '/images/avatar.jpeg',
 			}
 			localStorage.setItem('jwt', jwt)
 			setUser(currentUser)
@@ -76,14 +76,7 @@ export default function UserContextWrapper({ children }) {
 	}
 
 	function signIn() {
-		if (user === null) {
-			sessionStorage.setItem('redirectTo', '/dashboard/posters')
-			router.push(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/connect/google`)
-		} else if (user?.name) router.push('/dashboard/posters')
-		else {
-			if (sectionsConfig?.regOpen) router.push('/register')
-			else router.push('/regclosed')
-		}
+		window.location.href = '/api/auth/login'
 	}
 
 	function logout() {

@@ -1,8 +1,15 @@
 import { useUserContext } from 'context/UserContext'
 import CountUp from 'react-countup'
+import { requireAuth } from 'lib/requireAuth'
+import { useRouter } from 'next/router'
 
 const HeroText = () => {
-	const { signIn } = useUserContext()
+	const { isLoggedIn, signIn } = useUserContext()
+	const router = useRouter()
+
+	const handleRegisterClick = () => {
+		requireAuth({ isLoggedIn, signIn, redirectTo: '/register', router })
+	}
 
 	return (
 		<div className='hero-text container'>
@@ -10,49 +17,14 @@ const HeroText = () => {
 				Campus <br />
 				Ambassador
 			</h1>
-			<p className='hero-tagline'>Be the emissary of Ragam 2025</p>
+			<p className='hero-tagline'>Be the emissary of Ragam 2026</p>
 			<div className='hero-cta-wrapper'>
-				<button onClick={signIn} className='btn-primary'>
-					Sign up
+				<button className='btn-primary' onClick={handleRegisterClick}>
+					Register Now
 				</button>
 				<a href='#explore'>
 					<button className='btn-outline'>Explore</button>
 				</a>
-			</div>
-			<div className='hero-stats'>
-				<div className='stat-wrapper'>
-					<CountUp
-						className='stat-num'
-						end={30}
-						duration={1.5}
-						delay={0.5}
-						suffix='+'
-						useEasing={true}
-					/>
-					<p>Workshops</p>
-				</div>
-				<div className='stat-wrapper'>
-					<CountUp
-						className='stat-num'
-						end={12}
-						duration={1.3}
-						delay={0.5}
-						suffix='+'
-						useEasing={true}
-					/>
-					<p>Lectures</p>
-				</div>
-				<div className='stat-wrapper'>
-					<CountUp
-						className='stat-num'
-						end={150}
-						duration={1.8}
-						delay={0.5}
-						suffix='+'
-						useEasing={true}
-					/>
-					<p>Sponsors</p>
-				</div>
 			</div>
 		</div>
 	)

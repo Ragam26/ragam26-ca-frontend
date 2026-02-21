@@ -1,9 +1,10 @@
 import { useUserContext } from 'context/UserContext'
 
 import styles from './r-u-ready.module.css'
+import Link from 'next/link'
 
 export default function RUReady() {
-	const { signIn } = useUserContext()
+	// const { signIn } = useUserContext()
 
 	return (
 		<div className='container'>
@@ -21,9 +22,9 @@ export default function RUReady() {
 						</p>
 					</div>
 				</div>
-				<button className={`btn-primary ${styles['r-u-ready-btn']}`} onClick={signIn}>
-					Sign up
-				</button>
+				<Link href='/register' target='_blank'>
+					<button className={`btn-primary ${styles['r-u-ready-btn']}`}>Register Now</button>
+				</Link>
 			</div>
 			<div className='spacerv-md'></div>
 			<div className='spacerv-sm'></div>

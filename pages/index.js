@@ -5,18 +5,23 @@ import Page4 from 'components/homepage/Page4'
 import RUReady from 'components/common/RUReady'
 import { toast } from 'react-toastify'
 import { useEffect } from 'react'
+import { useUserContext } from 'context/UserContext'
+import { useRouter } from 'next/router'
 // notification on website load
 
 export default function Home() {
-	useEffect(() => {
-		const hasToastBeenShown = sessionStorage.getItem('toastShown')
+	const router = useRouter()
+	const { setAuthenticatedUser } = useUserContext()
 
-		if (!hasToastBeenShown) {
-			toast.info('Find the WhatsApp group link in the dashboard', {})
+	// useEffect(() => {
+	// 	const hasToastBeenShown = sessionStorage.getItem('toastShown')
 
-			sessionStorage.setItem('toastShown', 'true')
-		}
-	}, [])
+	// 	if (!hasToastBeenShown) {
+	// 		toast.info('Find the WhatsApp group link in the dashboard', {})
+
+	// 		sessionStorage.setItem('toastShown', 'true')
+	// 	}
+	// }, [])
 	return (
 		<>
 			<Hero />

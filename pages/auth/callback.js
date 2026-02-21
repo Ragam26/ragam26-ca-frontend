@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { useEffect } from 'react'
 import { useUserContext } from 'context/UserContext'
 import { useRouter } from 'next/router'
@@ -11,26 +10,38 @@ export default function CallbackPage() {
 
 	useEffect(() => {
 		if (!router.isReady) return
-		const temp = async () => {
+		const handleAuth = async () => {
 			try {
-				const { data } = await axios.get(
-					`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/google/callback?access_token=${router.query['access_token']}`
-				)
+				const { token } = router.query
 
-				await setAuthenticatedUser(data.jwt)
+				if (!token) {
+					router.push('/')
+					return
+				}
 
-				if (!data.user.name) {
+				localStorage.setItem('jwt', token)
+
+				const user = await setAuthenticatedUser(token)
+
+				if (!sectionsConfig) return
+
+				let redirectTo = sessionStorage.getItem('redirectAfterLogin') || '/'
+
+				sessionStorage.removeItem('redirectAfterLogin')
+
+				if (!user?.name) {
 					if (sectionsConfig?.regOpen) router.push('/register')
 					else router.push('/regclosed')
-				} else {
-					let loginFrom = sessionStorage.getItem('redirectTo') || '/'
-					router.push(loginFrom)
+					return
 				}
+				router.replace(redirectTo)
 			} catch (err) {
 				console.error(err)
+				router.replace('/')
 			}
 		}
-		temp()
+
+		handleAuth()
 	}, [router.isReady])
 
 	return (

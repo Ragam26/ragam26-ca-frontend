@@ -8,9 +8,13 @@ import Menu from 'components/common/Menu'
 import styles from './nav.module.css'
 
 export default function Nav() {
-	const { isLoggedIn, user: contextUser, signIn } = useUserContext()
-
 	const [showMenu, setShowMenu] = useState(false)
+
+	const { isLoggedIn, user, signIn, logout } = useUserContext()
+
+	const handleLogin = () => {
+		signIn()
+	}
 
 	return (
 		<nav className={styles['navbar']}>
@@ -39,35 +43,31 @@ export default function Nav() {
 						</Link>
 					</li>
 					<li>
-						{!isLoggedIn && (
-							<div className={styles['sign-in-desktop']} onClick={signIn}>
+						{!isLoggedIn ? (
+							<div className={styles['sign-in-desktop']} onClick={handleLogin}>
 								Sign in
 							</div>
-						)}
-						{isLoggedIn && (
+						) : (
 							<div className={styles['sign-out-desktop']}>
 								<div
-									onClick={signIn}
 									className={styles['avatar']}
-									style={{ backgroundImage: `url(${contextUser?.imageUrl})` }}
-								></div>
+									title={user?.name || 'User'}
+									onClick={logout}
+									style={{
+										backgroundImage: `url(${user?.imageUrl || '/images/avatar.png'})`,
+									}}
+								/>
 							</div>
 						)}
 					</li>
 				</ul>
-
-				{!isLoggedIn && (
-					<div className={styles['sign-in-mobile']} onClick={signIn}>
+				{!isLoggedIn ? (
+					<div className={styles['sign-in-mobile']} onClick={handleLogin}>
 						Sign in
 					</div>
-				)}
-				{isLoggedIn && (
-					<div className={styles['sign-out-mobile']}>
-						<div
-							onClick={signIn}
-							className={styles['avatar']}
-							style={{ backgroundImage: `url('${contextUser?.imageUrl}')` }}
-						></div>
+				) : (
+					<div className={styles['sign-out-mobile']} onClick={logout}>
+						Sign out
 					</div>
 				)}
 			</div>
