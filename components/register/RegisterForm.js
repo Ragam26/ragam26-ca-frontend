@@ -15,7 +15,7 @@ export default function RegisterForm({ editProfile }) {
 
 	useEffect(() => {
 		if (!user) return
-		fetchCaProfile(jwt, user?.caId)
+		fetchCaProfile(jwt)
 			.then(setForm)
 			.catch((err) => {
 				console.error(err)
@@ -28,14 +28,22 @@ export default function RegisterForm({ editProfile }) {
 
 	function handleSubmit(e) {
 		e.preventDefault()
+
+		const phone = form?.phone?.trim()
+
+		if (!/^\d{10}$/.test(phone)) {
+			toast.error('Please enter a valid 10-digit phone number')
+			return
+		}
+
 		toast
-			.promise(register(jwt, user?.userId, form), {
+			.promise(register(jwt, form), {
 				pending: 'Loading',
 				success: 'Successfull',
 				error: 'Try again!',
 			})
 			.then(() => {
-				router.push('/dashboard/posters')
+				router.push('/')
 			})
 			.catch(console.error)
 	}
@@ -76,7 +84,7 @@ export default function RegisterForm({ editProfile }) {
 					/>
 				</fieldset>
 				<fieldset>
-					<label>Institute*</label>
+					<label>College/Institute*</label>
 					<input
 						type='text'
 						name='college'
@@ -87,12 +95,12 @@ export default function RegisterForm({ editProfile }) {
 					/>
 				</fieldset>
 				<fieldset>
-					<label>Branch*</label>
+					<label>District*</label>
 					<input
 						type='text'
-						name='branch'
-						placeholder='Enter your branch'
-						value={form?.branch || ''}
+						name='district'
+						placeholder='Enter your district'
+						value={form?.district || ''}
 						required
 						onChange={handleChange}
 					/>
@@ -107,13 +115,6 @@ export default function RegisterForm({ editProfile }) {
 						<option value='Year 4'>Year 4</option>
 						<option value='Year 5'>Year 5</option>
 						<option value='Other'>Other</option>
-					</select>
-				</fieldset>
-				<fieldset>
-					<label>Have you been a CA before?*</label>
-					<select name='experience' value={form?.experience || false} onChange={handleChange}>
-						<option value={false}>No</option>
-						<option value={true}>Yes</option>
 					</select>
 				</fieldset>
 

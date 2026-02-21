@@ -28,12 +28,11 @@ export default function Register() {
 		return null
 	}
 
-	const isEditMode = router?.query?.editprofile === 'true'
-	const alreadyRegistered = user?.name && !isEditMode
+	const alreadyRegistered = user?.is_profile_completed
 
 	return (
 		<>
-			<PageHeader title={isEditMode ? 'Edit profile' : 'Register'} icon='/images/pen.png' />
+			<PageHeader title={alreadyRegistered ? 'Edit profile' : 'Register'} icon='/images/pen.png' />
 
 			{/* ✅ Already registered message */}
 			{alreadyRegistered ? (
@@ -54,7 +53,7 @@ export default function Register() {
 					</Link>
 				</div>
 			) : (
-				<RegisterForm editProfile={isEditMode} />
+				<RegisterForm editProfile={alreadyRegistered} />
 			)}
 		</>
 	)
