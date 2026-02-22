@@ -37,7 +37,7 @@ import DashboardLayout from 'components/layouts/DashboardLayout'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-const TITLE = `Ragam'25 — Campus Ambassador`
+const TITLE = `Ragam'26 — Campus Ambassador`
 const DESCRIPTION =
 	'Be the voice of Ragam in your campus. Help Ragam in its mission to educate and inspire the next generation of leaders and stand to win prizes including internships, certificates and cash prizes.'
 const SOCIAL_BANNER = 'https://ca.ragam.co.in/social-banner.png'
