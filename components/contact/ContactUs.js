@@ -17,7 +17,7 @@ const Contacts = [
 	},
 	{
 		name: 'Athulya Saji',
-		no: 9778369862,
+		no: 9778369862, 
 	},
 ]
 
