@@ -20,11 +20,11 @@ export default function Footer() {
 							<li>
 								<Link href='/'>Home</Link>
 							</li>
-							<li>
+							{/* <li>
 								<a href='https://marketing.ragam.co.in/' target='_blank' rel='noreferrer noopener'>
 									Marketing <HiOutlineExternalLink className={styles['external-icon']} />
 								</a>
-							</li>
+							</li> */}
 							{/* <li>
 								<a href='https://reg.ragam.co.in/' target='_blank' rel='noreferrer noopener'>
 									Registrations <HiOutlineExternalLink className={styles['external-icon']} />
