@@ -12,12 +12,12 @@ import styles from './contact-us.module.css'
 
 const Contacts = [
 	{
-		name: 'Nithin C Lal',
-		no: 9447051223,
+		name: 'Adwaith P',
+		no: 7356290030,
 	},
 	{
-		name: 'Megna Sunil',
-		no: 8129564066,
+		name: 'Athulya Saji',
+		no: 9778369862,
 	},
 ]
 
