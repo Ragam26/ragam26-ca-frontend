@@ -111,48 +111,6 @@ export default function ContactUs() {
 						</div>
 					</div>
 				</div>
-
-				<form className={styles['contact-us-right']} onSubmit={handleSubmit} ref={formElement}>
-					<SubHeading title='Message' icon='/images/message.png' />
-
-					<fieldset>
-						<label>Name</label>
-						<input
-							type='text'
-							name='name'
-							placeholder='Enter your name'
-							autoComplete='off'
-							required
-							value={form.name}
-							onChange={handleChange}
-						/>
-					</fieldset>
-					<fieldset>
-						<label>Email</label>
-						<input
-							type='email'
-							name='email'
-							placeholder='Enter your email'
-							autoComplete='off'
-							value={form.email}
-							onChange={handleChange}
-							required
-						/>
-					</fieldset>
-					<fieldset>
-						<label>Message</label>
-						<textarea
-							placeholder='Enter message'
-							name='message'
-							value={form.message}
-							onChange={handleChange}
-							required
-						></textarea>
-					</fieldset>
-					<button type='submit' className='btn-secondary'>
-						Submit
-					</button>
-				</form>
 			</div>
 		</div>
 	)

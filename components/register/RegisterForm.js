@@ -73,7 +73,7 @@ export default function RegisterForm({ editProfile }) {
 					/>
 				</fieldset>
 				<fieldset>
-					<label>Whatsapp no. (This will be your referral ID)*</label>
+					<label>Whatsapp no. (This will be your referral code)*</label>
 					<input
 						type='text'
 						name='phone'
