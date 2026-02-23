@@ -16,8 +16,8 @@ const Contacts = [
 		no: 7356290030,
 	},
 	{
-		name: 'Athulya Saji',
-		no: 9778369862,
+		name: 'Adnan Ali',
+		no: 7736057099,
 	},
 ]
 
