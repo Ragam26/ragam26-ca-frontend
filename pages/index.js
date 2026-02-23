@@ -26,7 +26,7 @@ export default function Home() {
 		<>
 			<Hero />
 			<Page2 />
-			{/* <Benefits /> */}
+			<Benefits />
 			<Page4 />
 			<RUReady />
 		</>

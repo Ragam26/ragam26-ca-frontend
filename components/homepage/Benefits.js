@@ -9,11 +9,11 @@ export default function Benefits() {
 			</div>
 			<div className='benefits-content'>
 				<div className='prizes-worth-wrapper'>
-					<img src='/images/prizes-worth.svg' alt='Prizes worth ₹50k' />
+					<img src='/images/prizes-worth.svg' alt='Prizes worth ₹22k' />
 				</div>
 				<div className='prizes-wrapper'>
-					<img src='/images/first-prize.svg' alt='🥇 ₹10,000' />
-					<img src='/images/second-prize.svg' alt='🥈 ₹5,000' />
+					<img src='/images/first-prize.svg' alt='🥇 ₹5,000' />
+					<img src='/images/second-prize.svg' alt='🥈 ₹4,000' />
 					<img src='/images/third-prize.svg' alt='🥉 ₹3,000' />
 				</div>
 				<div className='benefits-content-bottom'>
@@ -27,10 +27,6 @@ export default function Benefits() {
 							<p className='other-prize-position'>7th to 10th</p>
 							<p className='other-prize'>₹1000</p>
 							<span className='goodies-500'>+ Goodies</span>
-						</div>
-						<div className='other-prize-wrapper'>
-							<p className='other-prize-position'>10th to 20th</p>
-							<p className='other-prize'>Goodies</p>
 						</div>
 					</div>
 					<div className='benefits-desc-wrapper'>
