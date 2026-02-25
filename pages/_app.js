@@ -19,6 +19,7 @@ import 'components/homepage/hero.css'
 import 'components/homepage/benefits.css'
 import 'components/homepage/sponsors.css'
 import 'components/homepage/ringed-icon.css'
+import 'components/homepage/workshop.css'
 
 import 'components/dashboard/dashboard.css'
 import 'components/dashboard/side-nav.css'
