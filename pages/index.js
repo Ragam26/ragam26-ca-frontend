@@ -7,6 +7,7 @@ import { toast } from 'react-toastify'
 import { useEffect } from 'react'
 import { useUserContext } from 'context/UserContext'
 import { useRouter } from 'next/router'
+import Workshops from 'components/homepage/workshop'
 // notification on website load
 
 export default function Home() {
@@ -26,6 +27,7 @@ export default function Home() {
 		<>
 			<Hero />
 			<Page2 />
+			<Workshops />
 			<Benefits />
 			<Page4 />
 			<RUReady />

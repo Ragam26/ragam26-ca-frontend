@@ -3,8 +3,8 @@ export default function Benefits() {
 		<div className='benefits'>
 			<div className='benefits-image-container'>
 				<div className='benefits-image-wrapper'>
-					<h2 className='benefits-heading'>Benefits</h2>
-					<img src='/images/benefits.svg' alt='' className='benefits-image' />
+					<h2 className='benefits-heading'>Social Media Rewards</h2>
+					<img src='/images/instagram.svg' alt='' className='benefits-image' />
 				</div>
 			</div>
 			<div className='benefits-content'>
