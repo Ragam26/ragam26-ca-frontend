@@ -19,6 +19,7 @@ export default function AdminOverview() {
       (user.name || '').toLowerCase().includes(q) ||
       (user.email || '').toLowerCase().includes(q) ||
       (user.phone || user.phoneNo || '').toLowerCase().includes(q) ||
+      (user.gPayNumber || '').toLowerCase().includes(q) ||
       (user.college || user.collegeName || '').toLowerCase().includes(q) ||
       (user.district || '').toLowerCase().includes(q)
     )
@@ -100,6 +101,7 @@ export default function AdminOverview() {
               <th>Name</th>
               <th>Email</th>
               <th>Phone</th>
+              <th>GPay No.</th>
               <th>College</th>
               <th>District</th>
               <th>Registered On</th>
@@ -113,6 +115,7 @@ export default function AdminOverview() {
                   <td className='name-cell'>{user.name || '--'}</td>
                   <td>{user.email || '--'}</td>
                   <td>{user.phone || user.phoneNo || '--'}</td>
+                  <td>{user.gPayNumber || '--'}</td>
                   <td>{user.college || user.collegeName || '--'}</td>
                   <td>{user.district || '--'}</td>
                   <td>{formatDate(user.updatedAt)}</td>

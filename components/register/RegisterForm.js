@@ -84,6 +84,17 @@ export default function RegisterForm({ editProfile }) {
 					/>
 				</fieldset>
 				<fieldset>
+					<label>GPay No.*</label>
+					<input
+						type='text'
+						name='gPayNumber'
+						placeholder='Enter your GPay no.'
+						value={form?.gPayNumber || ''}
+						onChange={handleChange}
+						required
+					/>
+				</fieldset>
+				<fieldset>
 					<label>College/Institute*</label>
 					<input
 						type='text'
