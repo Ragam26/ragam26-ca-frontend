@@ -37,10 +37,12 @@
 	flex-direction: column;
 	align-items: center;
 	/* Black -> Yellow gradient fade at bottom */
-	background: linear-gradient(180deg,
-			rgba(0, 0, 0, 0) 0%,
-			rgba(255, 223, 0, 0.3) 60%,
-			rgba(255, 223, 0, 0.55) 100%);
+	background: linear-gradient(
+		180deg,
+		rgba(0, 0, 0, 0) 0%,
+		rgba(255, 223, 0, 0.3) 60%,
+		rgba(255, 223, 0, 0.55) 100%
+	);
 	background-size: 100% 40%;
 	background-repeat: no-repeat;
 	background-position: bottom;
@@ -166,16 +168,45 @@
 }
 
 @media (max-width: 550px) {
-	.workshops-reward-rules h3 {
-		font-size: 1.25rem;
+	.workshops {
+		margin-top: 10rem;
 	}
 
-	.workshops-reward-rules h4 {
-		font-size: 1.1rem;
+	h2 {
+		text-align: center;
 	}
 
-	.workshops-reward-rules p,
-	.workshops-reward-rules li {
-		font-size: 1rem;
+	.workshops-image-container {
+		overflow: visible;
+		min-height: 200px;
+		margin-top: 2.5rem;
+		width: 100%;
+	}
+
+	.workshops-image-wrapper {
+		margin-left: 0; /* remove left bias */
+		width: 100%;
+		height: 200px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		position: relative; /* ensure absolute child is relative to this */
+	}
+
+	.workshops-image {
+		width: 320px;
+		position: absolute;
+		top: -100%;
+		left: 5%;
+		transform: translate(-50%, -50%);
+		z-index: 1;
+	}
+
+	.workshops-content-bottom {
+		flex-direction: column;
+	}
+
+	.workshops-reward-rules {
+		text-align: center;
 	}
 }

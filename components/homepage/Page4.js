@@ -15,8 +15,8 @@ export default function Page4() {
 
 				<div className='page-4-title-wrapper'>
 					<div className='page-4-title-content'>
-						<h2 className='text-eligibility'>Eligibility</h2>
 						<img src='/images/eligibility.svg' alt='' className='page-4-title-image' />
+						<h2 className='text-eligibility'>Eligibility</h2>
 					</div>
 				</div>
 			</div>
