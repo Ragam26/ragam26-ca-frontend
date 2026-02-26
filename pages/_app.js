@@ -25,6 +25,7 @@ import 'components/dashboard/dashboard.css'
 import 'components/dashboard/side-nav.css'
 import 'components/dashboard/referrals.css'
 import 'components/dashboard/posters.css'
+import 'components/admin/admin.css'
 
 import 'lib/firebase'
 
@@ -35,6 +36,7 @@ import Nav from 'components/common/Nav'
 import Footer from 'components/common/Footer'
 import UserContextWrapper from 'context/UserContext'
 import DashboardLayout from 'components/layouts/DashboardLayout'
+import AdminLayout from 'components/admin/AdminLayout'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -81,15 +83,23 @@ export default function MyApp({ Component, pageProps }) {
 				<meta name='twitter:image' content={SOCIAL_BANNER} />
 			</Head>
 			<UserContextWrapper>
-				<Nav />
-				{router?.pathname?.includes('/dashboard') ? (
-					<DashboardLayout>
+				{router?.pathname?.startsWith('/admin') ? (
+					<AdminLayout>
 						<Component {...pageProps} />
-					</DashboardLayout>
+					</AdminLayout>
 				) : (
-					<Component {...pageProps} />
+					<>
+						<Nav />
+						{router?.pathname?.includes('/dashboard') ? (
+							<DashboardLayout>
+								<Component {...pageProps} />
+							</DashboardLayout>
+						) : (
+							<Component {...pageProps} />
+						)}
+						<Footer />
+					</>
 				)}
-				<Footer />
 			</UserContextWrapper>
 			<ToastContainer />
 		</>
