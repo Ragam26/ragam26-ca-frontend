@@ -35,7 +35,7 @@ export default function AdminOverview() {
     setError(null)
     try {
       const { data } = await axios.post(
-        '/api/admin/get-ca?verified=false',
+        '/api/admin/get-ca?verified=true',
         {},
         {
           headers: {
