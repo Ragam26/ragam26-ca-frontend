@@ -24,8 +24,6 @@ export default function CallbackPage() {
 
 				const user = await setAuthenticatedUser(token)
 
-				// Show token and role info for debugging
-				setTokenInfo({ token, user })
 
 				// Admin users go straight to admin panel
 				if (user?.role === 'admin') {
