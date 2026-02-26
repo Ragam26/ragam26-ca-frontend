@@ -39,7 +39,7 @@ export default function Nav() {
 					</li>
 					{isLoggedIn && (
 						<li>
-							<Link href='/dashboard' className={styles['nav-text']}>
+							<Link href='/dashboard/referrals' className={styles['nav-text']}>
 								Dashboard
 							</Link>
 						</li>

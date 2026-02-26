@@ -14,10 +14,11 @@ export default function UserContextWrapper({ children }) {
 	const [jwt, setJwt] = useState(null)
 	const [isLoggedIn, setIsLoggedIn] = useState(false)
 	const [sectionsConfig, setSectionsConfig] = useState({
-		posters: false,
+		posters: true,
 		referrals: false,
 		feedback: false,
-		whatsapp: false,
+		whatsapp: true,
+		instagram: true,
 		leaderboard: true,
 		regOpen: true,
 		whatsappLink: '',

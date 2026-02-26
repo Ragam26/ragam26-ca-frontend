@@ -27,6 +27,7 @@ export default function DashboardLayout({ children }) {
 		const data = {
 			posters: { title: 'Posters', icon: '/images/posters.png' },
 			referrals: { title: 'Referrals', icon: '/images/referrals.png' },
+			instagram: { title: 'Instagram', icon: '/images/insta.png' },
 			feedback: { title: 'Feedback', icon: '/images/feedback.png' },
 			whatsapp: { title: 'Whatsapp', icon: '/images/whatsapp.png' },
 		}

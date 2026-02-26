@@ -56,6 +56,11 @@ button:active {
 	background: linear-gradient(277.9deg, #1f31d1 -5.62%, #2dc0ef 106.21%);
 }
 
+.btn-danger {
+	color: #fff;
+	background: linear-gradient(277.9deg, #d12c1f -5.62%, #ef2d2d 106.21%);
+}
+
 /* SPINNER */
 .lds-ring {
 	display: inline-block;
