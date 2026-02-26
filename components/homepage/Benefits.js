@@ -30,6 +30,12 @@ export default function Benefits() {
 						</div>
 					</div>
 					<div className='benefits-desc-wrapper'>
+						<p>
+							Points will be awarded based on four key promotional activities:
+							WhatsApp group sharing, WhatsApp status updates, Instagram posts,
+							and Instagram stories. Detailed point structure will be shared
+							with registered Campus Ambassadors.
+						</p>
 						<p>Special certificate for top 20 people</p>
 						<p>Certificate for those who completed a certain tier (% of work)</p>
 						<p>Extra benefits for excellence in work (Awarded by Ragam PRC)</p>

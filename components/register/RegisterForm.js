@@ -73,12 +73,23 @@ export default function RegisterForm({ editProfile }) {
 					/>
 				</fieldset>
 				<fieldset>
-					<label>Whatsapp no. (This will be your referral code)*</label>
+					<label>Whatsapp No. (This will be your referral code)*</label>
 					<input
 						type='text'
 						name='phone'
 						placeholder='Enter your whatsapp no.'
 						value={form?.phone || ''}
+						onChange={handleChange}
+						required
+					/>
+				</fieldset>
+				<fieldset>
+					<label>GPay No.*</label>
+					<input
+						type='text'
+						name='gPayNumber'
+						placeholder='Enter your GPay no.'
+						value={form?.gPayNumber || ''}
 						onChange={handleChange}
 						required
 					/>

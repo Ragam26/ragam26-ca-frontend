@@ -3,31 +3,32 @@ export default function Workshops() {
 		<div className='workshops'>
 			<div className='workshops-image-container'>
 				<div className='workshops-image-wrapper'>
-					<h2 className='workshops-heading'>Workshops</h2>
+					
 					<img src='/images/workshop.svg' alt='' className='workshops-image' />
+<h2 className='workshops-heading'>Workshop Commission</h2>
+
 				</div>
+				
 			</div>
 			<div className='workshops-content'>
 				<div className='workshops-content-bottom'>
-					<br />
-					<br />
-					<br />
-					<br />
-					<br />
-					<br />
-					<br />
-					<br />
-					<br />
-					<br />
-					<br />
-					<br />
-					<br />
-					<br />
-					<br />
-					<br />
-					<br />
-					<br />
-					<br />
+					<div className='workshops-reward-rules'>
+						<h3>Reward Rules:</h3>
+						<p>
+							• A minimum of 5 workshop registrations is required to become eligible
+							for commission.
+						</p>
+						<h4>Commission slabs:</h4>
+						<ul>
+							<li>• 1–15 registrations: 5% commission per registration</li>
+							<li>• 16–30 registrations: 10% commission per registration</li>
+							<li>• 31–45 registrations: 15% commission per registration</li>
+							<li>• 46 registrations onwards: 20% commission per registration</li>
+						</ul>
+						<p className='reward-rules-note'>
+							(Each percentage applies only to registrations within that slab)
+						</p>
+					</div>
 				</div>
 			</div>
 		</div>
