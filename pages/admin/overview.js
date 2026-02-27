@@ -2,175 +2,13 @@ import { useEffect, useState } from 'react'
 import { useUserContext } from 'context/UserContext'
 import axios from 'axios'
 import { BiSearch, BiDownload } from 'react-icons/bi'
-import AdminLayout from '../../components/admin/AdminLayout.js'
 
 export default function AdminOverview() {
-	// const { jwt } = useUserContext()
+	const { jwt } = useUserContext()
 
-	const [loading, setLoading] = useState(false)
-	const [users, setUsers] = useState([
-		{
-			userId: '1',
-			name: 'John Doe',
-			email: 'john@test.com',
-			phone: '9876543210',
-			gPayNumber: '9876543210',
-			college: 'MIT',
-			district: 'Wayanad',
-			updatedAt: new Date().toISOString(),
-		},
-		{
-			userId: '2',
-			name: 'Jane Smith',
-			email: 'jane@test.com',
-			phone: '9123456780',
-			gPayNumber: '9123456780',
-			college: 'NIT',
-			district: 'Kozhikode',
-			updatedAt: new Date().toISOString(),
-		},
-		{
-			userId: '1',
-			name: 'John Doe',
-			email: 'john@test.com',
-			phone: '9876543210',
-			gPayNumber: '9876543210',
-			college: 'MIT',
-			district: 'Wayanad',
-			updatedAt: new Date().toISOString(),
-		},
-		{
-			userId: '1',
-			name: 'John Doe',
-			email: 'john@test.com',
-			phone: '9876543210',
-			gPayNumber: '9876543210',
-			college: 'MIT',
-			district: 'Wayanad',
-			updatedAt: new Date().toISOString(),
-		},
-		{
-			userId: '1',
-			name: 'John Doe',
-			email: 'john@test.com',
-			phone: '9876543210',
-			gPayNumber: '9876543210',
-			college: 'MIT',
-			district: 'Wayanad',
-			updatedAt: new Date().toISOString(),
-		},
-		{
-			userId: '1',
-			name: 'John Doe',
-			email: 'john@test.com',
-			phone: '9876543210',
-			gPayNumber: '9876543210',
-			college: 'MIT',
-			district: 'Wayanad',
-			updatedAt: new Date().toISOString(),
-		},
-		{
-			userId: '1',
-			name: 'John Doe',
-			email: 'john@test.com',
-			phone: '9876543210',
-			gPayNumber: '9876543210',
-			college: 'MIT',
-			district: 'Wayanad',
-			updatedAt: new Date().toISOString(),
-		},
-		{
-			userId: '1',
-			name: 'John Doe',
-			email: 'john@test.com',
-			phone: '9876543210',
-			gPayNumber: '9876543210',
-			college: 'MIT',
-			district: 'Wayanad',
-			updatedAt: new Date().toISOString(),
-		},
-		{
-			userId: '1',
-			name: 'John Doe',
-			email: 'john@test.com',
-			phone: '9876543210',
-			gPayNumber: '9876543210',
-			college: 'MIT',
-			district: 'Wayanad',
-			updatedAt: new Date().toISOString(),
-		},
-		{
-			userId: '1',
-			name: 'John Doe',
-			email: 'john@test.com',
-			phone: '9876543210',
-			gPayNumber: '9876543210',
-			college: 'MIT',
-			district: 'Wayanad',
-			updatedAt: new Date().toISOString(),
-		},
-		{
-			userId: '1',
-			name: 'John Doe',
-			email: 'john@test.com',
-			phone: '9876543210',
-			gPayNumber: '9876543210',
-			college: 'MIT',
-			district: 'Wayanad',
-			updatedAt: new Date().toISOString(),
-		},
-		{
-			userId: '1',
-			name: 'John Doe',
-			email: 'john@test.com',
-			phone: '9876543210',
-			gPayNumber: '9876543210',
-			college: 'MIT',
-			district: 'Wayanad',
-			updatedAt: new Date().toISOString(),
-		},
-		{
-			userId: '1',
-			name: 'John Doe',
-			email: 'john@test.com',
-			phone: '9876543210',
-			gPayNumber: '9876543210',
-			college: 'MIT',
-			district: 'Wayanad',
-			updatedAt: new Date().toISOString(),
-		},
-		{
-			userId: '1',
-			name: 'John Doe',
-			email: 'john@test.com',
-			phone: '9876543210',
-			gPayNumber: '9876543210',
-			college: 'MIT',
-			district: 'Wayanad',
-			updatedAt: new Date().toISOString(),
-		},
-		{
-			userId: '1',
-			name: 'John Doe',
-			email: 'john@test.com',
-			phone: '9876543210',
-			gPayNumber: '9876543210',
-			college: 'MIT',
-			district: 'Wayanad',
-			updatedAt: new Date().toISOString(),
-		},
-		{
-			userId: '1',
-			name: 'John Doe',
-			email: 'john@test.com',
-			phone: '9876543210',
-			gPayNumber: '9876543210',
-			college: 'MIT',
-			district: 'Wayanad',
-			updatedAt: new Date().toISOString(),
-		},
-	])
-	const [total, setTotal] = useState(2)
+	const [loading, setLoading] = useState(true)
+	const [users, setUsers] = useState([])
+	const [total, setTotal] = useState(0)
 	const [error, setError] = useState(null)
 	const [searchQuery, setSearchQuery] = useState('')
 
@@ -187,32 +25,32 @@ export default function AdminOverview() {
 		)
 	})
 
-	// useEffect(() => {
-	// 	if (!jwt) return
-	// 	fetchUsers()
-	// }, [jwt])
+	useEffect(() => {
+		if (!jwt) return
+		fetchUsers()
+	}, [jwt])
 
-	// async function fetchUsers() {
-	// 	setLoading(true)
-	// 	setError(null)
-	// 	try {
-	// 		const { data } = await axios.post(
-	// 			'/api/admin/get-ca?verified=true',
-	// 			{},
-	// 			{
-	// 				headers: {
-	// 					Authorization: `Bearer ${jwt}`,
-	// 				},
-	// 			}
-	// 		)
-	// 		setUsers(data.users || data.data || data || [])
-	// 		setTotal(data.total || (data.users || data.data || data || []).length)
-	// 	} catch (err) {
-	// 		console.error('Failed to fetch users:', err)
-	// 		setError('Failed to fetch users')
-	// 	}
-	// 	setLoading(false)
-	// }
+	async function fetchUsers() {
+		setLoading(true)
+		setError(null)
+		try {
+			const { data } = await axios.post(
+				'/api/admin/get-ca?verified=true',
+				{},
+				{
+					headers: {
+						Authorization: `Bearer ${jwt}`,
+					},
+				}
+			)
+			setUsers(data.users || data.data || data || [])
+			setTotal(data.total || (data.users || data.data || data || []).length)
+		} catch (err) {
+			console.error('Failed to fetch users:', err)
+			setError('Failed to fetch users')
+		}
+		setLoading(false)
+	}
 
 	function formatDate(dateStr) {
 		if (!dateStr) return '--'
@@ -260,16 +98,14 @@ export default function AdminOverview() {
 
 	if (loading) {
 		return (
-			<AdminLayout>
-				<div className='admin-loading'>
-					<span>Loading registered CAs...</span>
-				</div>
-			</AdminLayout>
+			<div className='admin-loading'>
+				<span>Loading registered CAs...</span>
+			</div>
 		)
 	}
 
 	return (
-		<AdminLayout>
+		<>
 			<div className='admin-page-heading'>
 				<h1>Registered CAs</h1>
 				<span className='count'>{total}</span>
@@ -338,6 +174,6 @@ export default function AdminOverview() {
 					</tbody>
 				</table>
 			</div>
-		</AdminLayout>
+		</>
 	)
 }

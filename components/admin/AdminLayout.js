@@ -6,32 +6,28 @@ import { BiGridAlt, BiLogOut } from 'react-icons/bi'
 
 export default function AdminLayout({ children }) {
 	const router = useRouter()
-	// const { user, isLoggedIn, getUser, logout } = useUserContext()
+	const { user, isLoggedIn, getUser, logout } = useUserContext()
 
-	const user = { name: 'Test Admin', email: 'admin@test.com', role: 'admin' }
-	const isLoggedIn = true
-	const logout = () => router.push('/')
+	useEffect(() => {
+		getUser().then((u) => {
+			if (!u) {
+				router.push('/')
+				return
+			}
+			if (u.role !== 'admin') {
+				router.push('/')
+				return
+			}
+		})
+	}, [])
 
-	// useEffect(() => {
-	// 	getUser().then((u) => {
-	// 		if (!u) {
-	// 			router.push('/')
-	// 			return
-	// 		}
-	// 		if (u.role !== 'admin') {
-	// 			router.push('/')
-	// 			return
-	// 		}
-	// 	})
-	// }, [])
-
-	// if (!isLoggedIn || user?.role !== 'admin') {
-	// 	return (
-	// 		<div className='admin-loading'>
-	// 			<span>Loading...</span>
-	// 		</div>
-	// 	)
-	// }
+	if (!isLoggedIn || user?.role !== 'admin') {
+		return (
+			<div className='admin-loading'>
+				<span>Loading...</span>
+			</div>
+		)
+	}
 
 	return (
 		<div className='admin-layout'>
