@@ -1,14 +1,176 @@
 import { useEffect, useState } from 'react'
 import { useUserContext } from 'context/UserContext'
 import axios from 'axios'
-import { BiSearch } from 'react-icons/bi'
+import { BiSearch, BiDownload } from 'react-icons/bi'
+import AdminLayout from '../../components/admin/AdminLayout.js'
 
 export default function AdminOverview() {
-	const { jwt } = useUserContext()
+	// const { jwt } = useUserContext()
 
-	const [loading, setLoading] = useState(true)
-	const [users, setUsers] = useState([])
-	const [total, setTotal] = useState(0)
+	const [loading, setLoading] = useState(false)
+	const [users, setUsers] = useState([
+		{
+			userId: '1',
+			name: 'John Doe',
+			email: 'john@test.com',
+			phone: '9876543210',
+			gPayNumber: '9876543210',
+			college: 'MIT',
+			district: 'Wayanad',
+			updatedAt: new Date().toISOString(),
+		},
+		{
+			userId: '2',
+			name: 'Jane Smith',
+			email: 'jane@test.com',
+			phone: '9123456780',
+			gPayNumber: '9123456780',
+			college: 'NIT',
+			district: 'Kozhikode',
+			updatedAt: new Date().toISOString(),
+		},
+		{
+			userId: '1',
+			name: 'John Doe',
+			email: 'john@test.com',
+			phone: '9876543210',
+			gPayNumber: '9876543210',
+			college: 'MIT',
+			district: 'Wayanad',
+			updatedAt: new Date().toISOString(),
+		},
+		{
+			userId: '1',
+			name: 'John Doe',
+			email: 'john@test.com',
+			phone: '9876543210',
+			gPayNumber: '9876543210',
+			college: 'MIT',
+			district: 'Wayanad',
+			updatedAt: new Date().toISOString(),
+		},
+		{
+			userId: '1',
+			name: 'John Doe',
+			email: 'john@test.com',
+			phone: '9876543210',
+			gPayNumber: '9876543210',
+			college: 'MIT',
+			district: 'Wayanad',
+			updatedAt: new Date().toISOString(),
+		},
+		{
+			userId: '1',
+			name: 'John Doe',
+			email: 'john@test.com',
+			phone: '9876543210',
+			gPayNumber: '9876543210',
+			college: 'MIT',
+			district: 'Wayanad',
+			updatedAt: new Date().toISOString(),
+		},
+		{
+			userId: '1',
+			name: 'John Doe',
+			email: 'john@test.com',
+			phone: '9876543210',
+			gPayNumber: '9876543210',
+			college: 'MIT',
+			district: 'Wayanad',
+			updatedAt: new Date().toISOString(),
+		},
+		{
+			userId: '1',
+			name: 'John Doe',
+			email: 'john@test.com',
+			phone: '9876543210',
+			gPayNumber: '9876543210',
+			college: 'MIT',
+			district: 'Wayanad',
+			updatedAt: new Date().toISOString(),
+		},
+		{
+			userId: '1',
+			name: 'John Doe',
+			email: 'john@test.com',
+			phone: '9876543210',
+			gPayNumber: '9876543210',
+			college: 'MIT',
+			district: 'Wayanad',
+			updatedAt: new Date().toISOString(),
+		},
+		{
+			userId: '1',
+			name: 'John Doe',
+			email: 'john@test.com',
+			phone: '9876543210',
+			gPayNumber: '9876543210',
+			college: 'MIT',
+			district: 'Wayanad',
+			updatedAt: new Date().toISOString(),
+		},
+		{
+			userId: '1',
+			name: 'John Doe',
+			email: 'john@test.com',
+			phone: '9876543210',
+			gPayNumber: '9876543210',
+			college: 'MIT',
+			district: 'Wayanad',
+			updatedAt: new Date().toISOString(),
+		},
+		{
+			userId: '1',
+			name: 'John Doe',
+			email: 'john@test.com',
+			phone: '9876543210',
+			gPayNumber: '9876543210',
+			college: 'MIT',
+			district: 'Wayanad',
+			updatedAt: new Date().toISOString(),
+		},
+		{
+			userId: '1',
+			name: 'John Doe',
+			email: 'john@test.com',
+			phone: '9876543210',
+			gPayNumber: '9876543210',
+			college: 'MIT',
+			district: 'Wayanad',
+			updatedAt: new Date().toISOString(),
+		},
+		{
+			userId: '1',
+			name: 'John Doe',
+			email: 'john@test.com',
+			phone: '9876543210',
+			gPayNumber: '9876543210',
+			college: 'MIT',
+			district: 'Wayanad',
+			updatedAt: new Date().toISOString(),
+		},
+		{
+			userId: '1',
+			name: 'John Doe',
+			email: 'john@test.com',
+			phone: '9876543210',
+			gPayNumber: '9876543210',
+			college: 'MIT',
+			district: 'Wayanad',
+			updatedAt: new Date().toISOString(),
+		},
+		{
+			userId: '1',
+			name: 'John Doe',
+			email: 'john@test.com',
+			phone: '9876543210',
+			gPayNumber: '9876543210',
+			college: 'MIT',
+			district: 'Wayanad',
+			updatedAt: new Date().toISOString(),
+		},
+	])
+	const [total, setTotal] = useState(2)
 	const [error, setError] = useState(null)
 	const [searchQuery, setSearchQuery] = useState('')
 
@@ -25,32 +187,32 @@ export default function AdminOverview() {
 		)
 	})
 
-	useEffect(() => {
-		if (!jwt) return
-		fetchUsers()
-	}, [jwt])
+	// useEffect(() => {
+	// 	if (!jwt) return
+	// 	fetchUsers()
+	// }, [jwt])
 
-	async function fetchUsers() {
-		setLoading(true)
-		setError(null)
-		try {
-			const { data } = await axios.post(
-				'/api/admin/get-ca?verified=true',
-				{},
-				{
-					headers: {
-						Authorization: `Bearer ${jwt}`,
-					},
-				}
-			)
-			setUsers(data.users || data.data || data || [])
-			setTotal(data.total || (data.users || data.data || data || []).length)
-		} catch (err) {
-			console.error('Failed to fetch users:', err)
-			setError('Failed to fetch users')
-		}
-		setLoading(false)
-	}
+	// async function fetchUsers() {
+	// 	setLoading(true)
+	// 	setError(null)
+	// 	try {
+	// 		const { data } = await axios.post(
+	// 			'/api/admin/get-ca?verified=true',
+	// 			{},
+	// 			{
+	// 				headers: {
+	// 					Authorization: `Bearer ${jwt}`,
+	// 				},
+	// 			}
+	// 		)
+	// 		setUsers(data.users || data.data || data || [])
+	// 		setTotal(data.total || (data.users || data.data || data || []).length)
+	// 	} catch (err) {
+	// 		console.error('Failed to fetch users:', err)
+	// 		setError('Failed to fetch users')
+	// 	}
+	// 	setLoading(false)
+	// }
 
 	function formatDate(dateStr) {
 		if (!dateStr) return '--'
@@ -64,16 +226,50 @@ export default function AdminOverview() {
 		})
 	}
 
+	function handleDownload() {
+		const headers = [
+			'#',
+			'Name',
+			'Email',
+			'Phone',
+			'GPay No.',
+			'College',
+			'District',
+			'Registered On',
+		]
+		const rows = filteredUsers.map((user, index) => [
+			index + 1,
+			user.name || '--',
+			user.email || '--',
+			user.phone || user.phoneNo || '--',
+			user.gPayNumber || '--',
+			user.college || user.collegeName || '--',
+			user.district || '--',
+			formatDate(user.updatedAt),
+		])
+
+		const csv = [headers, ...rows].map((row) => row.join(',')).join('\n')
+		const blob = new Blob([csv], { type: 'text/csv' })
+		const url = URL.createObjectURL(blob)
+		const a = document.createElement('a')
+		a.href = url
+		a.download = 'registered-cas.csv'
+		a.click()
+		URL.revokeObjectURL(url)
+	}
+
 	if (loading) {
 		return (
-			<div className='admin-loading'>
-				<span>Loading registered CAs...</span>
-			</div>
+			<AdminLayout>
+				<div className='admin-loading'>
+					<span>Loading registered CAs...</span>
+				</div>
+			</AdminLayout>
 		)
 	}
 
 	return (
-		<>
+		<AdminLayout>
 			<div className='admin-page-heading'>
 				<h1>Registered CAs</h1>
 				<span className='count'>{total}</span>
@@ -81,20 +277,27 @@ export default function AdminOverview() {
 
 			{error && <p className='admin-error-text'>{error}</p>}
 
-			<div className='admin-search-bar'>
-				<BiSearch size={18} />
-				<input
-					type='text'
-					placeholder='Search by name, email, phone, college or district...'
-					value={searchQuery}
-					onChange={(e) => setSearchQuery(e.target.value)}
-					className='admin-search-input'
-				/>
-				{searchQuery && (
-					<span className='admin-search-count'>
-						{filteredUsers.length} of {total} results
-					</span>
-				)}
+			<div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '20px' }}>
+				<div className='admin-search-bar' style={{ marginTop: 0, flex: 1 }}>
+					<BiSearch size={18} />
+					<input
+						type='text'
+						placeholder='Search by name, email, phone, college or district...'
+						value={searchQuery}
+						onChange={(e) => setSearchQuery(e.target.value)}
+						className='admin-search-input'
+					/>
+					{searchQuery && (
+						<span className='admin-search-count'>
+							{filteredUsers.length} of {total} results
+						</span>
+					)}
+				</div>
+
+				<button className='admin-download-btn' onClick={handleDownload}>
+					<BiDownload size={18} />
+					Download
+				</button>
 			</div>
 
 			<div className='admin-table-container'>
@@ -127,7 +330,7 @@ export default function AdminOverview() {
 							))
 						) : (
 							<tr>
-								<td colSpan={7} className='admin-empty-row'>
+								<td colSpan={8} className='admin-empty-row'>
 									No users found
 								</td>
 							</tr>
@@ -135,6 +338,6 @@ export default function AdminOverview() {
 					</tbody>
 				</table>
 			</div>
-		</>
+		</AdminLayout>
 	)
 }
