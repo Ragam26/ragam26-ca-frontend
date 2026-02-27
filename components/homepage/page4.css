@@ -104,3 +104,33 @@
 		margin-bottom: 0px;
 	}
 }
+
+@media (max-width: 550px) {
+	.page-4-title-wrapper {
+		height: auto;
+		padding: 1rem 0;
+	}
+
+	.page-4-title-content {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		margin-right: 0;
+	}
+
+	.page-4-title-image {
+		position: static;
+		width: 90vw;
+		max-width: 380px;
+		top: unset;
+		left: unset;
+	}
+
+	.text-eligibility {
+		position: static;
+		top: unset;
+		left: unset;
+		margin-top: -6rem;
+		text-align: center;
+	}
+}
