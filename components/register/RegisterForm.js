@@ -62,7 +62,7 @@ export default function RegisterForm({ editProfile }) {
 					style={{
 						position: 'fixed',
 						inset: 0,
-						backgroundColor: 'rgba(0,0,0,0.5)',
+						backgroundColor: 'rgba(0,0,0,0.7)',
 						display: 'flex',
 						alignItems: 'center',
 						justifyContent: 'center',
@@ -71,13 +71,15 @@ export default function RegisterForm({ editProfile }) {
 				>
 					<div
 						style={{
-							background: '#fff',
+							background: '#0a0a0a',
+							border: '1px solid rgba(255,255,255,0.08)',
+							boxShadow:
+								'0 0 0 1px rgba(255,255,255,0.04), 0 8px 40px rgba(0,0,0,0.6), 0 0 80px rgba(220,38,38,0.06)',
 							borderRadius: '12px',
 							padding: '2.5rem',
 							maxWidth: '420px',
 							width: '90%',
 							textAlign: 'center',
-							boxShadow: '0 8px 40px rgba(0,0,0,0.12)',
 							animation: 'popupFade 0.25s ease-out',
 							position: 'relative',
 						}}
@@ -93,7 +95,7 @@ export default function RegisterForm({ editProfile }) {
 								right: '16px',
 								background: 'transparent',
 								border: 'none',
-								color: '#aaa',
+								color: '#555',
 								fontSize: '20px',
 								cursor: 'pointer',
 								lineHeight: 1,
@@ -106,7 +108,7 @@ export default function RegisterForm({ editProfile }) {
 							style={{
 								width: '40px',
 								height: '3px',
-								background: '#4945ff',
+								background: '#dc2626',
 								borderRadius: '2px',
 								margin: '0 auto 1.5rem',
 							}}
@@ -115,7 +117,7 @@ export default function RegisterForm({ editProfile }) {
 						<h2
 							style={{
 								marginBottom: '0.5rem',
-								color: '#111',
+								color: '#ffffff',
 								fontSize: '20px',
 								fontWeight: '700',
 								letterSpacing: '-0.2px',
@@ -126,19 +128,26 @@ export default function RegisterForm({ editProfile }) {
 
 						<p
 							style={{
-								color: '#666',
+								color: '#aaa',
 								marginBottom: '0.75rem',
 								fontSize: '14px',
 								lineHeight: '1.7',
 							}}
 						>
 							You are now a Campus Ambassador for{' '}
-							<span style={{ color: '#111', fontWeight: '600' }}>Ragam 2026.</span>
+							<span style={{ color: '#fff', fontWeight: '600' }}>Ragam 2026.</span>
 						</p>
 
-						<p style={{ color: '#666', marginBottom: '2rem', fontSize: '14px', lineHeight: '1.7' }}>
+						<p
+							style={{ color: '#aaa', marginBottom: '0.4rem', fontSize: '14px', lineHeight: '1.7' }}
+						>
 							Join this group after you complete your CA Registration. All updates will be given to
 							you through this group.
+						</p>
+
+						<p style={{ marginBottom: '2rem', fontSize: '14px', lineHeight: '1.7' }}>
+							<span style={{ color: '#ef4444', fontWeight: '700' }}>Mandatory</span>
+							<span style={{ color: '#aaa' }}> to join the group.</span>
 						</p>
 
 						<a
@@ -147,13 +156,14 @@ export default function RegisterForm({ editProfile }) {
 							rel='noreferrer'
 							style={{
 								display: 'inline-block',
-								background: '#4945ff',
+								background: '#c0392b',
 								color: '#fff',
 								padding: '0.7rem 2rem',
 								borderRadius: '8px',
 								textDecoration: 'none',
 								fontWeight: '600',
 								fontSize: '14px',
+								letterSpacing: '0.2px',
 							}}
 						>
 							Join
@@ -164,7 +174,7 @@ export default function RegisterForm({ editProfile }) {
 								setShowPopup(false)
 								router.push('/')
 							}}
-							style={{ marginTop: '1rem', fontSize: '13px', color: '#aaa', cursor: 'pointer' }}
+							style={{ marginTop: '1rem', fontSize: '13px', color: '#444', cursor: 'pointer' }}
 						>
 							Dismiss
 						</p>
