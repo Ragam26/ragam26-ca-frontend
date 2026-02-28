@@ -36,6 +36,7 @@ export default function PosterCard({
 					</button>
 					<a
 						href={imageLink}
+						download
 						target='_blank'
 						rel='noopener noreferrer'
 						className='download-poster-button'
