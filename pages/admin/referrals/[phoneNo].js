@@ -4,6 +4,120 @@ import { BiChevronLeft } from 'react-icons/bi'
 import AdminLayout from 'components/admin/AdminLayout'
 
 // ─── FAKE VERSION ─────────────────────────────────────────────────────────────
+// CA profile lookup for fake
+const FAKE_CA_PROFILES = {
+	9876543210: {
+		name: 'Arun Kumar',
+		email: 'arun@example.com',
+		phoneNo: '9876543210',
+		collegeName: 'NIT Calicut',
+		district: 'Malappuram',
+		referralCode: 'ARUN2025',
+		gPayNumber: '9876543210',
+		role: 'CA',
+		isProfileComplete: true,
+	},
+	9845123456: {
+		name: 'Meera Nair',
+		email: 'meera@example.com',
+		phoneNo: '9845123456',
+		collegeName: 'College of Engineering Trivandrum',
+		district: 'Thiruvananthapuram',
+		referralCode: 'MEERA2025',
+		gPayNumber: '9845123456',
+		role: 'CA',
+		isProfileComplete: true,
+	},
+	9812345678: {
+		name: 'Rahul Menon',
+		email: 'rahul@example.com',
+		phoneNo: '9812345678',
+		collegeName: 'Model Engineering College',
+		district: 'Ernakulam',
+		referralCode: 'RAHUL2025',
+		gPayNumber: '9812345678',
+		role: 'CA',
+		isProfileComplete: true,
+	},
+	9765432100: {
+		name: 'Anjali Raj',
+		email: 'anjali@example.com',
+		phoneNo: '9765432100',
+		collegeName: 'CUSAT',
+		district: 'Ernakulam',
+		referralCode: 'ANJALI2025',
+		gPayNumber: '9765432100',
+		role: 'CA',
+		isProfileComplete: true,
+	},
+	9745678901: {
+		name: 'Vishnu Das',
+		email: 'vishnu@example.com',
+		phoneNo: '9745678901',
+		collegeName: 'GEC Thrissur',
+		district: 'Thrissur',
+		referralCode: 'VISHNU2025',
+		gPayNumber: '9745678901',
+		role: 'CA',
+		isProfileComplete: true,
+	},
+	9698765432: {
+		name: 'Sneha Suresh',
+		email: 'sneha@example.com',
+		phoneNo: '9698765432',
+		collegeName: 'MES College of Engineering',
+		district: 'Malappuram',
+		referralCode: 'SNEHA2025',
+		gPayNumber: '9698765432',
+		role: 'CA',
+		isProfileComplete: true,
+	},
+	9701234567: {
+		name: 'Arjun Pillai',
+		email: 'arjun@example.com',
+		phoneNo: '9701234567',
+		collegeName: 'Govt. Engineering College Barton Hill',
+		district: 'Thiruvananthapuram',
+		referralCode: 'ARJUN2025',
+		gPayNumber: '9701234567',
+		role: 'CA',
+		isProfileComplete: true,
+	},
+	9712345678: {
+		name: 'Devika Krishnan',
+		email: 'devika@example.com',
+		phoneNo: '9712345678',
+		collegeName: 'NSS College of Engineering',
+		district: 'Palakkad',
+		referralCode: 'DEVIKA2025',
+		gPayNumber: '9712345678',
+		role: 'CA',
+		isProfileComplete: false,
+	},
+	9723456789: {
+		name: 'Siddharth P',
+		email: 'siddharth@example.com',
+		phoneNo: '9723456789',
+		collegeName: 'Rajagiri School of Engineering',
+		district: 'Ernakulam',
+		referralCode: 'SIDD2025',
+		gPayNumber: '9723456789',
+		role: 'CA',
+		isProfileComplete: true,
+	},
+	9734567890: {
+		name: 'Lakshmi S',
+		email: 'lakshmi@example.com',
+		phoneNo: '9734567890',
+		collegeName: 'TKM College of Engineering',
+		district: 'Kollam',
+		referralCode: 'LAKSHMI2025',
+		gPayNumber: '9734567890',
+		role: 'CA',
+		isProfileComplete: true,
+	},
+}
+
 const FAKE_REFERRALS = {
 	9876543210: [
 		{
@@ -146,6 +260,52 @@ const FAKE_REFERRALS = {
 	],
 }
 
+function CAProfileCard({ ca }) {
+	return (
+		<div
+			style={{
+				background: '#1e1e2e',
+				borderRadius: '12px',
+				padding: '20px 24px',
+				marginTop: '20px',
+				display: 'grid',
+				gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
+				gap: '16px',
+				border: '1px solid #2d2d3f',
+			}}
+		>
+			<CAField label='Name' value={ca.name} />
+			<CAField label='Email' value={ca.email} />
+			<CAField label='Phone' value={ca.phoneNo} />
+			<CAField label='College' value={ca.collegeName} />
+			<CAField label='District' value={ca.district} />
+			<CAField label='Referral Code' value={ca.referralCode} />
+			<CAField label='GPay No.' value={ca.gPayNumber} />
+			<CAField label='Role' value={ca.role} />
+			<CAField label='Profile Complete' value={ca.isProfileComplete ? 'Yes' : 'No'} />
+		</div>
+	)
+}
+
+function CAField({ label, value }) {
+	return (
+		<div>
+			<div
+				style={{
+					fontSize: '11px',
+					color: '#6b7280',
+					marginBottom: '2px',
+					textTransform: 'uppercase',
+					letterSpacing: '0.05em',
+				}}
+			>
+				{label}
+			</div>
+			<div style={{ fontSize: '14px', color: '#e2e8f0', fontWeight: '500' }}>{value || '--'}</div>
+		</div>
+	)
+}
+
 function PaidButton({ referralId, initialPaid }) {
 	const [isPaid, setIsPaid] = useState(initialPaid)
 	const [showConfirm, setShowConfirm] = useState(false)
@@ -272,11 +432,13 @@ export default function ReferralDetail() {
 	const router = useRouter()
 	const { phoneNo } = router.query
 	const [referrals, setReferrals] = useState([])
+	const [caProfile, setCaProfile] = useState(null)
 	const [loading, setLoading] = useState(true)
 
 	useEffect(() => {
 		if (!router.isReady || !phoneNo) return
 		setReferrals(FAKE_REFERRALS[phoneNo] || [])
+		setCaProfile(FAKE_CA_PROFILES[phoneNo] || null)
 		setLoading(false)
 	}, [router.isReady, phoneNo])
 
@@ -310,9 +472,11 @@ export default function ReferralDetail() {
 				>
 					<BiChevronLeft size={24} />
 				</button>
-				<h1>Referrals for {phoneNo}</h1>
+				<h1>Referrals by {caProfile?.name || phoneNo}</h1>
 				<span className='count'>{referrals.length}</span>
 			</div>
+
+			{caProfile && <CAProfileCard ca={caProfile} />}
 
 			<div className='admin-table-container' style={{ marginTop: '20px' }}>
 				<table className='admin-table'>
@@ -362,13 +526,47 @@ export default function ReferralDetail() {
 // import { BiChevronLeft } from 'react-icons/bi'
 // import AdminLayout from 'components/AdminLayout'
 //
+// function CAProfileCard({ ca }) {
+// 	return (
+// 		<div style={{
+// 			background: '#1e1e2e',
+// 			borderRadius: '12px',
+// 			padding: '20px 24px',
+// 			marginTop: '20px',
+// 			display: 'grid',
+// 			gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
+// 			gap: '16px',
+// 			border: '1px solid #2d2d3f',
+// 		}}>
+// 			<CAField label='Name' value={ca.name} />
+// 			<CAField label='Email' value={ca.email} />
+// 			<CAField label='Phone' value={ca.phoneNo} />
+// 			<CAField label='College' value={ca.collegeName} />
+// 			<CAField label='District' value={ca.district} />
+// 			<CAField label='Referral Code' value={ca.referralCode} />
+// 			<CAField label='GPay No.' value={ca.gPayNumber} />
+// 			<CAField label='Role' value={ca.role} />
+// 			<CAField label='Profile Complete' value={ca.isProfileComplete ? 'Yes' : 'No'} />
+// 		</div>
+// 	)
+// }
+
+// function CAField({ label, value }) {
+// 	return (
+// 		<div>
+// 			<div style={{ fontSize: '11px', color: '#6b7280', marginBottom: '2px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{label}</div>
+// 			<div style={{ fontSize: '14px', color: '#e2e8f0', fontWeight: '500' }}>{value || '--'}</div>
+// 		</div>
+// 	)
+// }
+
 // function PaidButton({ referralId, initialPaid }) {
 // 	const [isPaid, setIsPaid] = useState(initialPaid)
 // 	const [showConfirm, setShowConfirm] = useState(false)
 //
 // 	async function handleConfirm() {
 // 		try {
-// 			await axios.post(`/api/admin/mark-paid/${referralId}`, {}, {
+// 			await axios.post('/api/admin/update-referral', { referral_id: referralId }, {
 // 				headers: { Authorization: `Bearer ${jwt}` },
 // 			})
 // 			setIsPaid(true)
@@ -444,13 +642,14 @@ export default function ReferralDetail() {
 // 	const { phoneNo } = router.query
 // 	const { jwt } = useUserContext()
 // 	const [referrals, setReferrals] = useState([])
+// 	const [caProfile, setCaProfile] = useState(null)
 // 	const [loading, setLoading] = useState(true)
 // 	const [error, setError] = useState(null)
 //
 // 	useEffect(() => {
-// 		if (!router.isReady || !phoneNo || !jwt) return
+// 		if (!phoneNo || !jwt) return
 // 		fetchReferrals()
-// 	}, [router.isReady, phoneNo, jwt])
+// 	}, [phoneNo, jwt])
 //
 // 	async function fetchReferrals() {
 // 		setLoading(true)
@@ -461,6 +660,9 @@ export default function ReferralDetail() {
 // 			})
 // 			const list = Array.isArray(data) ? data : (data.referrals || data.data || [])
 // 			setReferrals(list)
+// 			if (list.length > 0 && list[0].user) {
+// 				setCaProfile(list[0].user)
+// 			}
 // 		} catch (err) {
 // 			console.error('Failed to fetch referrals:', err)
 // 			setError('Failed to fetch referrals')
@@ -481,11 +683,13 @@ export default function ReferralDetail() {
 // 				>
 // 					<BiChevronLeft size={24} />
 // 				</button>
-// 				<h1>Referrals for {phoneNo}</h1>
+// 				<h1>Referrals by {caProfile?.name || phoneNo}</h1>
 // 				<span className='count'>{referrals.length}</span>
 // 			</div>
 //
 // 			{error && <p className='admin-error-text'>{error}</p>}
+//
+// 			{caProfile && <CAProfileCard ca={caProfile} />}
 //
 // 			<div className='admin-table-container' style={{ marginTop: '20px' }}>
 // 				<table className='admin-table'>
