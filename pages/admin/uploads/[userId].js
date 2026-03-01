@@ -4,144 +4,7 @@ import { useUserContext } from 'context/UserContext'
 import { BiArrowBack, BiCheckCircle, BiXCircle, BiX, BiTime, BiTrophy } from 'react-icons/bi'
 import { FaWhatsapp, FaInstagram } from 'react-icons/fa'
 import { MdSms } from 'react-icons/md'
-
-//! FAKE DATA - replace with real API call
-const FAKE_USER_MAP = {
-	1: { name: 'Alice Johnson', college: 'NIT Calicut', email: 'alice@example.com' },
-	2: { name: 'Bob Smith', college: 'IIT Bombay', email: 'bob@example.com' },
-	3: { name: 'Carol White', college: 'BITS Pilani', email: 'carol@example.com' },
-	4: { name: 'David Lee', college: 'VIT Vellore', email: 'david@example.com' },
-	5: { name: 'Eva Green', college: 'Amrita Coimbatore', email: 'eva@example.com' },
-	6: { name: 'Frank Torres', college: 'SRM Chennai', email: 'frank@example.com' },
-} //!
-
-//! FAKE SCREENSHOTS - replace with real API call
-const FAKE_SCREENSHOTS = {
-	1: [
-		{
-			id: 101,
-			url: 'https://picsum.photos/seed/s101/400/700',
-			tag: 'whatsapp',
-			status: 'pending',
-			uploadedAt: '2026-02-25T10:00:00Z',
-		},
-		{
-			id: 102,
-			url: 'https://picsum.photos/seed/s102/400/700',
-			tag: 'instagram',
-			status: 'accepted',
-			points: 50,
-			uploadedAt: '2026-02-24T09:00:00Z',
-		},
-		{
-			id: 103,
-			url: 'https://picsum.photos/seed/s103/400/700',
-			tag: 'whatsapp',
-			status: 'pending',
-			uploadedAt: '2026-02-26T11:00:00Z',
-		},
-		{
-			id: 104,
-			url: 'https://picsum.photos/seed/s104/400/700',
-			tag: 'other',
-			status: 'pending',
-			uploadedAt: '2026-02-27T12:00:00Z',
-		},
-		{
-			id: 105,
-			url: 'https://picsum.photos/seed/s105/400/700',
-			tag: 'instagram',
-			status: 'rejected',
-			uploadedAt: '2026-02-23T08:00:00Z',
-		},
-	],
-	2: [
-		{
-			id: 201,
-			url: 'https://picsum.photos/seed/s201/400/700',
-			tag: 'instagram',
-			status: 'pending',
-			uploadedAt: '2026-02-25T10:00:00Z',
-		},
-		{
-			id: 202,
-			url: 'https://picsum.photos/seed/s202/400/700',
-			tag: 'whatsapp',
-			status: 'pending',
-			uploadedAt: '2026-02-25T11:00:00Z',
-		},
-		{
-			id: 203,
-			url: 'https://picsum.photos/seed/s203/400/700',
-			tag: 'instagram',
-			status: 'accepted',
-			points: 75,
-			uploadedAt: '2026-02-24T09:00:00Z',
-		},
-		{
-			id: 204,
-			url: 'https://picsum.photos/seed/s204/400/700',
-			tag: 'whatsapp',
-			status: 'rejected',
-			uploadedAt: '2026-02-22T10:00:00Z',
-		},
-		{
-			id: 205,
-			url: 'https://picsum.photos/seed/s205/400/700',
-			tag: 'other',
-			status: 'pending',
-			uploadedAt: '2026-02-26T14:00:00Z',
-		},
-		{
-			id: 206,
-			url: 'https://picsum.photos/seed/s206/400/700',
-			tag: 'whatsapp',
-			status: 'pending',
-			uploadedAt: '2026-02-27T09:00:00Z',
-		},
-		{
-			id: 207,
-			url: 'https://picsum.photos/seed/s207/400/700',
-			tag: 'instagram',
-			status: 'accepted',
-			points: 30,
-			uploadedAt: '2026-02-23T15:00:00Z',
-		},
-		{
-			id: 208,
-			url: 'https://picsum.photos/seed/s208/400/700',
-			tag: 'instagram',
-			status: 'pending',
-			uploadedAt: '2026-02-28T08:00:00Z',
-		},
-	],
-	3: [
-		{
-			id: 301,
-			url: 'https://picsum.photos/seed/s301/400/700',
-			tag: 'whatsapp',
-			status: 'accepted',
-			points: 60,
-			uploadedAt: '2026-02-20T10:00:00Z',
-		},
-		{
-			id: 302,
-			url: 'https://picsum.photos/seed/s302/400/700',
-			tag: 'instagram',
-			status: 'accepted',
-			points: 90,
-			uploadedAt: '2026-02-21T11:00:00Z',
-		},
-		{
-			id: 303,
-			url: 'https://picsum.photos/seed/s303/400/700',
-			tag: 'other',
-			status: 'accepted',
-			points: 50,
-			uploadedAt: '2026-02-22T12:00:00Z',
-		},
-	],
-} //!
+import { fetchUploads, updateUploadStatus, buildImageUrl } from 'lib/req/uploads'
 
 function TagIcon({ tag }) {
 	if (tag === 'whatsapp')
@@ -186,6 +49,7 @@ function StatusBadge({ status, points }) {
 export default function UserScreenshotsPage() {
 	const router = useRouter()
 	const { userId } = router.query
+	const username = userId ? decodeURIComponent(userId) : null
 	const { jwt } = useUserContext()
 
 	const [loading, setLoading] = useState(true)
@@ -199,31 +63,34 @@ export default function UserScreenshotsPage() {
 	const [filterStatus, setFilterStatus] = useState('all')
 
 	useEffect(() => {
-		if (!userId) return
+		if (!username) return
 		fetchScreenshots()
-	}, [userId])
+	}, [username])
 
 	async function fetchScreenshots() {
 		setLoading(true)
-		//! FAKE DATA - replace with real API call
-		setTimeout(() => {
-			const uid = parseInt(userId)
-			setUserInfo(FAKE_USER_MAP[uid] || { name: 'Unknown User', college: '--', email: '--' })
-			setScreenshots(FAKE_SCREENSHOTS[uid] || [])
-			setLoading(false)
-		}, 400)
-		/*
 		try {
-			const { data } = await axios.get(`/api/admin/uploads/${userId}`, {
-				headers: { Authorization: `Bearer ${jwt}` },
-			})
-			setUserInfo(data.user)
-			setScreenshots(data.screenshots || [])
+			const data = await fetchUploads(jwt, { username })
+			const uploads = data || []
+			if (uploads.length > 0) {
+				setUserInfo({ name: uploads[0].user?.name || username })
+			} else {
+				setUserInfo({ name: username })
+			}
+			const mapped = uploads.map((upload) => ({
+				id: upload.uploadId,
+				url: buildImageUrl(upload.filePath),
+				tag: upload.category,
+				status: upload.status === 'approved' ? 'accepted' : upload.status,
+				points: upload.points,
+				uploadedAt: upload.createdAt,
+			}))
+			setScreenshots(mapped)
 		} catch (err) {
 			console.error('Failed to fetch screenshots:', err)
+		} finally {
+			setLoading(false)
 		}
-		setLoading(false)
-		*/
 	}
 
 	function openAccept(screenshot) {
@@ -249,40 +116,21 @@ export default function UserScreenshotsPage() {
 		}
 
 		setActionLoading(true)
-		//! FAKE ACTION - replace with real API call
-		setTimeout(() => {
-			setScreenshots((prev) =>
-				prev.map((s) =>
-					s.id === screenshot.id
-						? {
-								...s,
-								status: action === 'accept' ? 'accepted' : 'rejected',
-								points: action === 'accept' ? Number(pointsInput) : undefined,
-						  }
-						: s
-				)
-			)
-			setActionModal(null)
-			setActionLoading(false)
-		}, 500)
-		/*
 		try {
-			await axios.post(
-				`/api/admin/uploads/${userId}/action`,
-				{
-					screenshotId: screenshot.id,
-					action,
-					points: action === 'accept' ? Number(pointsInput) : undefined,
-				},
-				{ headers: { Authorization: `Bearer ${jwt}` } }
+			await updateUploadStatus(
+				jwt,
+				screenshot.id,
+				action === 'accept' ? 'approved' : 'rejected',
+				action === 'accept' ? Number(pointsInput) : undefined
 			)
-			fetchScreenshots()
+			await fetchScreenshots()
 		} catch (err) {
 			console.error('Action failed:', err)
+			alert('Failed to update status. Please try again.')
+		} finally {
+			setActionModal(null)
+			setActionLoading(false)
 		}
-		setActionLoading(false)
-		setActionModal(null)
-		*/
 	}
 
 	const filteredScreenshots = screenshots.filter((s) => {

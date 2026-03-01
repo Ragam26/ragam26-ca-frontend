@@ -10,49 +10,35 @@ axios.defaults.withCredentials = true
 export default function UserContextWrapper({ children }) {
 	const router = useRouter()
 
-	//! FAKE DATA FOR FRONTEND TESTING - NO BACKEND
-	const [user, setUser] = useState({
-		name: 'John Doe',
-		email: 'john.doe@example.com',
-		role: 'admin', //! Changed to 'admin' to allow admin section access
-		imageUrl: 'https://i.pravatar.cc/150?img=12',
-		points: 150,
-		refCode: 'REF123ABC',
-		caId: 'ca-001',
-		is_profile_completed: true,
-	})
-	const [jwt, setJwt] = useState('fake-jwt-token-for-testing')
-	const [isLoggedIn, setIsLoggedIn] = useState(true) //! Always logged in for testing
-	const [sectionsConfig, setSectionsConfig] = useState({
-		posters: true, //! Enabled
-		referrals: true, //! Enabled
-		feedback: true, //! Enabled
-		whatsapp: true, //! Enabled
-		leaderboard: true,
-		regOpen: true,
-		whatsappLink: 'https://chat.whatsapp.com/fake-link', //! Fake link
-	})
+	const [user, setUser] = useState(null)
+	const [jwt, setJwt] = useState(null)
+	const [isLoggedIn, setIsLoggedIn] = useState(false)
+	const [sectionsConfig, setSectionsConfig] = useState(null)
 
 	useEffect(() => {
 		let jwt = localStorage.getItem('jwt')
 		if (jwt) setAuthenticatedUser(jwt)
 	}, [])
 
-	// useEffect(() => {
-	// 	;(async () => {
-	// 		const { data } = await axios.get('/api/config')
-	// 		let temp = data.data.attributes
-	// 		setSectionsConfig({
-	// 			feedback: temp.feedback,
-	// 			posters: temp.posters,
-	// 			referrals: temp.referrals,
-	// 			whatsapp: temp.joinWhatsappGroup,
-	// 			leaderboard: temp.leaderboard,
-	// 			regOpen: temp.regOpen,
-	// 			whatsappLink: temp.whatsapp_link,
-	// 		})
-	// 	})()
-	// }, [])
+	useEffect(() => {
+		;(async () => {
+			try {
+				const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/config`)
+				const temp = data?.data?.attributes ?? data
+				setSectionsConfig({
+					feedback: temp.feedback,
+					posters: temp.posters,
+					referrals: temp.referrals,
+					whatsapp: temp.joinWhatsappGroup ?? temp.whatsapp,
+					leaderboard: temp.leaderboard,
+					regOpen: temp.regOpen,
+					whatsappLink: temp.whatsapp_link ?? temp.whatsappLink,
+				})
+			} catch (err) {
+				console.error('Failed to fetch sections config:', err)
+			}
+		})()
+	}, [])
 
 	const setAuthenticatedUser = async (jwt) => {
 		try {
@@ -73,7 +59,11 @@ export default function UserContextWrapper({ children }) {
 				name: data.user.name,
 				email: data.user.email,
 				role: data.user.role,
-				imageUrl: '/images/avatar.jpeg',
+				imageUrl: data.user.imageUrl || '/images/avatar.jpeg',
+				caId: data.user.caId ?? data.user.id,
+				refCode: data.user.refCode ?? data.user.referralCode,
+				points: data.user.points ?? 0,
+				is_profile_completed: data.user.is_profile_completed ?? !!data.user.name,
 			}
 			localStorage.setItem('jwt', jwt)
 			setUser(currentUser)
@@ -98,19 +88,15 @@ export default function UserContextWrapper({ children }) {
 	}
 
 	function getUser() {
-		//! BYPASSING BACKEND - Return fake user directly
-		return Promise.resolve(user)
-		/*
 		return new Promise(async (resolve, reject) => {
 			try {
-				let jwt = localStorage.getItem('jwt')
-				if (jwt) resolve(setAuthenticatedUser(jwt))
+				const storedJwt = localStorage.getItem('jwt')
+				if (storedJwt) resolve(await setAuthenticatedUser(storedJwt))
 				else resolve(null)
 			} catch (err) {
 				reject(err)
 			}
 		})
-		*/
 	}
 
 	return (

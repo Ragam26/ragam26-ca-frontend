@@ -13,32 +13,8 @@ export default function Leaderboard() {
 	const [leaderboard, setLeaderboard] = useState([])
 
 	useEffect(() => {
-		//! BYPASSING BACKEND - Using fake leaderboard data
-		const fakeLeaderboard = [
-			{ user: { name: 'Alice Johnson' }, totalPoints: 450 },
-			{ user: { name: 'Bob Smith' }, totalPoints: 380 },
-			{ user: { name: 'Charlie Brown' }, totalPoints: 350 },
-			{ user: { name: 'Diana Prince' }, totalPoints: 320 },
-			{ user: { name: 'Eve Martinez' }, totalPoints: 290 },
-			{ user: { name: 'Frank Wilson' }, totalPoints: 270 },
-			{ user: { name: 'Grace Lee' }, totalPoints: 250 },
-			{ user: { name: 'Henry Davis' }, totalPoints: 230 },
-			{ user: { name: 'Ivy Chen' }, totalPoints: 210 },
-			{ user: { name: "Jack O'Neill" }, totalPoints: 190 },
-			{ user: { name: 'Kate Miller' }, totalPoints: 175 },
-			{ user: { name: 'Leo Anderson' }, totalPoints: 160 },
-			{ user: { name: 'Mia Thompson' }, totalPoints: 145 },
-			{ user: { name: 'Noah Garcia' }, totalPoints: 130 },
-			{ user: { name: 'Olivia White' }, totalPoints: 120 },
-		]
-		setTimeout(() => setLeaderboard(fakeLeaderboard), 500)
-		/*
 		fetchLeaderboard().then(setLeaderboard).catch(console.error)
-		*/
 	}, [])
-	useEffect(() => {
-		console.log('leaderboard', leaderboard)
-	}, [leaderboard])
 
 	return (
 		<>

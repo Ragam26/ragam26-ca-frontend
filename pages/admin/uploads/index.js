@@ -3,70 +3,7 @@ import { useRouter } from 'next/router'
 import { useUserContext } from 'context/UserContext'
 import { BiSearch, BiImage, BiCheckCircle, BiXCircle, BiTime } from 'react-icons/bi'
 import { FaWhatsapp, FaInstagram } from 'react-icons/fa'
-
-//! FAKE DATA - replace with real API call
-const FAKE_UPLOAD_USERS = [
-	{
-		userId: 1,
-		name: 'Alice Johnson',
-		college: 'NIT Calicut',
-		email: 'alice@example.com',
-		totalUploads: 5,
-		pending: 3,
-		accepted: 2,
-		rejected: 0,
-	},
-	{
-		userId: 2,
-		name: 'Bob Smith',
-		college: 'IIT Bombay',
-		email: 'bob@example.com',
-		totalUploads: 8,
-		pending: 5,
-		accepted: 2,
-		rejected: 1,
-	},
-	{
-		userId: 3,
-		name: 'Carol White',
-		college: 'BITS Pilani',
-		email: 'carol@example.com',
-		totalUploads: 3,
-		pending: 0,
-		accepted: 3,
-		rejected: 0,
-	},
-	{
-		userId: 4,
-		name: 'David Lee',
-		college: 'VIT Vellore',
-		email: 'david@example.com',
-		totalUploads: 6,
-		pending: 2,
-		accepted: 3,
-		rejected: 1,
-	},
-	{
-		userId: 5,
-		name: 'Eva Green',
-		college: 'Amrita Coimbatore',
-		email: 'eva@example.com',
-		totalUploads: 4,
-		pending: 4,
-		accepted: 0,
-		rejected: 0,
-	},
-	{
-		userId: 6,
-		name: 'Frank Torres',
-		college: 'SRM Chennai',
-		email: 'frank@example.com',
-		totalUploads: 7,
-		pending: 1,
-		accepted: 5,
-		rejected: 1,
-	},
-] //!
+import { fetchUploads } from 'lib/req/uploads'
 
 export default function UploadsPage() {
 	const router = useRouter()
@@ -77,42 +14,42 @@ export default function UploadsPage() {
 	const [filterStatus, setFilterStatus] = useState('all')
 
 	useEffect(() => {
-		fetchUploads()
+		loadUploads()
 	}, [jwt])
 
-	async function fetchUploads() {
+	async function loadUploads() {
 		setLoading(true)
-		//! FAKE DATA - replace with real axios call to backend
-		setTimeout(() => {
-			setUsers(FAKE_UPLOAD_USERS)
-			setLoading(false)
-		}, 400)
-		/*
 		try {
-			const { data } = await axios.get('/api/admin/uploads', {
-				headers: { Authorization: `Bearer ${jwt}` },
-			})
-			setUsers(data.users || data || [])
+			const data = await fetchUploads(jwt)
+			// Group flat upload list by user name to get per-user stats
+			const userMap = {}
+			for (const upload of data || []) {
+				const name = upload?.user?.name
+				if (!name) continue
+				if (!userMap[name]) {
+					userMap[name] = { name, totalUploads: 0, pending: 0, accepted: 0, rejected: 0 }
+				}
+				userMap[name].totalUploads++
+				if (upload.status === 'approved') userMap[name].accepted++
+				else if (upload.status === 'rejected') userMap[name].rejected++
+				else userMap[name].pending++
+			}
+			setUsers(Object.values(userMap))
 		} catch (err) {
-			console.error('Failed to fetch upload users:', err)
+			console.error('Failed to fetch uploads:', err)
+		} finally {
+			setLoading(false)
 		}
-		setLoading(false)
-		*/
 	}
 
 	const filteredUsers = users.filter((u) => {
 		const matchSearch =
-			!searchQuery.trim() ||
-			u.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-			u.college.toLowerCase().includes(searchQuery.toLowerCase()) ||
-			u.email.toLowerCase().includes(searchQuery.toLowerCase())
-
+			!searchQuery.trim() || u.name.toLowerCase().includes(searchQuery.toLowerCase())
 		const matchFilter =
 			filterStatus === 'all' ||
 			(filterStatus === 'pending' && u.pending > 0) ||
 			(filterStatus === 'accepted' && u.accepted > 0) ||
 			(filterStatus === 'rejected' && u.rejected > 0)
-
 		return matchSearch && matchFilter
 	})
 
@@ -174,15 +111,13 @@ export default function UploadsPage() {
 				<div className='uploads-user-grid'>
 					{filteredUsers.map((user) => (
 						<div
-							key={user.userId}
+							key={user.name}
 							className='uploads-user-card'
-							onClick={() => router.push(`/admin/uploads/${user.userId}`)}
+							onClick={() => router.push(`/admin/uploads/${encodeURIComponent(user.name)}`)}
 						>
 							<div className='uploads-user-avatar'>{user.name.charAt(0).toUpperCase()}</div>
 							<div className='uploads-user-info'>
 								<div className='uploads-user-name'>{user.name}</div>
-								<div className='uploads-user-college'>{user.college}</div>
-								<div className='uploads-user-email'>{user.email}</div>
 							</div>
 							<div className='uploads-user-stats'>
 								<div className='uploads-stat'>

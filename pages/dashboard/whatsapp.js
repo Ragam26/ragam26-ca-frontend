@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useUserContext } from 'context/UserContext'
 import { toast } from 'react-toastify'
-import { submitWhatsappScreenshot, fetchWhatsappSubmissions } from 'lib/req/whatsapp'
+import { submitUpload, fetchUploads, buildImageUrl } from 'lib/req/uploads'
 
 import NotActive from 'components/dashboard/NotActive'
 
@@ -22,53 +22,22 @@ export default function Whatsapp() {
 
 	function fetchSubmissions() {
 		setLoading(true)
-		//! BYPASSING BACKEND - Using fake data
-		setTimeout(() => {
-			const fakeData = [
-				{
-					id: 1,
-					platform: 'whatsapp',
-					status: 'approved',
-					createdAt: '2026-02-28T10:30:00Z',
-					images: [
-						{ id: 1, url: 'https://placehold.co/300x600/4ade80/ffffff?text=WhatsApp+Story' },
-						{ id: 2, url: 'https://placehold.co/300x600/60a5fa/ffffff?text=Screenshot+2' },
-					],
-				},
-				{
-					id: 2,
-					platform: 'instagram',
-					status: 'pending',
-					createdAt: '2026-02-27T15:45:00Z',
-					images: [
-						{
-							id: 3,
-							url: 'https://placehold.co/300x600/ec4899/ffffff?text=Instagram+Story',
-						},
-					],
-				},
-				{
-					id: 3,
-					platform: 'whatsapp',
-					status: 'approved',
-					createdAt: '2026-02-26T09:20:00Z',
-					images: [{ id: 4, url: 'https://placehold.co/300x600/fbbf24/ffffff?text=WA+Screenshot' }],
-				},
-			]
-			setSubmissions(fakeData)
-			setLoading(false)
-		}, 500) //! Simulate loading delay
-		/*
-		fetchWhatsappSubmissions(jwt, user?.caId)
+		fetchUploads(jwt)
 			.then((data) => {
-				setSubmissions(data)
-				setLoading(false)
+				const mapped = (data || []).map((upload) => ({
+					id: upload.uploadId,
+					platform: upload.category,
+					status: upload.status,
+					createdAt: upload.createdAt,
+					images: [{ id: upload.uploadId, url: buildImageUrl(upload.filePath) }],
+				}))
+				setSubmissions(mapped)
 			})
 			.catch((err) => {
 				console.error(err)
-				setLoading(false)
+				toast.error('Failed to load submissions')
 			})
-		*/
+			.finally(() => setLoading(false))
 	}
 
 	function handleFileChange(e) {
@@ -91,32 +60,16 @@ export default function Whatsapp() {
 		setIsSubmitting(true)
 		setUploadProgress(0)
 
-		//! BYPASSING BACKEND - Simulating upload
-		const interval = setInterval(() => {
-			setUploadProgress((prev) => {
-				if (prev >= 100) {
-					clearInterval(interval)
-					return 100
-				}
-				return prev + 10
-			})
-		}, 100)
-
-		setTimeout(() => {
-			clearInterval(interval)
-			toast.success('Screenshot submitted successfully!')
-			setSelectedFiles([])
-			setUploadProgress(0)
-			fetchSubmissions()
-			setIsSubmitting(false)
-		}, 1200)
-
-		/*
-		submitWhatsappScreenshot(jwt, user?.caId, selectedFiles, platform, (progress) => {
+		submitUpload(jwt, selectedFiles, platform, (progress) => {
 			setUploadProgress(progress)
 		})
-			.then(() => {
-				toast.success('Screenshot submitted successfully!')
+			.then((result) => {
+				if (result?.failedFiles?.length) {
+					result.failedFiles.forEach((f) => toast.warn(`${f.name}: ${f.reason}`))
+				}
+				if (result?.savedFiles?.length) {
+					toast.success('Screenshot submitted successfully!')
+				}
 				setSelectedFiles([])
 				setUploadProgress(0)
 				fetchSubmissions()
@@ -128,7 +81,6 @@ export default function Whatsapp() {
 			.finally(() => {
 				setIsSubmitting(false)
 			})
-		*/
 	}
 
 	if (!sectionsConfig?.whatsapp) return <NotActive />
