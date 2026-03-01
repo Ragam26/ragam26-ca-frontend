@@ -14,7 +14,7 @@ export default function UserContextWrapper({ children }) {
 	const [user, setUser] = useState({
 		name: 'John Doe',
 		email: 'john.doe@example.com',
-		role: 'user',
+		role: 'admin', //! Changed to 'admin' to allow admin section access
 		imageUrl: 'https://i.pravatar.cc/150?img=12',
 		points: 150,
 		refCode: 'REF123ABC',

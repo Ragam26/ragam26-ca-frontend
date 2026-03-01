@@ -33,15 +33,75 @@ export default function AdminOverview() {
 	async function fetchUsers() {
 		setLoading(true)
 		setError(null)
+		//! BYPASSING BACKEND - Using fake CA data
+		setTimeout(() => {
+			const fakeUsers = [
+				{
+					userId: 1,
+					name: 'Alice Johnson',
+					email: 'alice@example.com',
+					phone: '9876543210',
+					gPayNumber: '9876543210',
+					college: 'NIT Calicut',
+					district: 'Kozhikode',
+					updatedAt: '2026-02-20T10:00:00Z',
+					points: 120,
+				}, //!
+				{
+					userId: 2,
+					name: 'Bob Smith',
+					email: 'bob@example.com',
+					phone: '9123456780',
+					gPayNumber: '9123456780',
+					college: 'IIT Bombay',
+					district: 'Mumbai',
+					updatedAt: '2026-02-21T11:30:00Z',
+					points: 85,
+				}, //!
+				{
+					userId: 3,
+					name: 'Carol White',
+					email: 'carol@example.com',
+					phone: '9988776655',
+					gPayNumber: '9988776655',
+					college: 'BITS Pilani',
+					district: 'Pilani',
+					updatedAt: '2026-02-22T09:15:00Z',
+					points: 200,
+				}, //!
+				{
+					userId: 4,
+					name: 'David Lee',
+					email: 'david@example.com',
+					phone: '9871234560',
+					gPayNumber: '9871234560',
+					college: 'VIT Vellore',
+					district: 'Vellore',
+					updatedAt: '2026-02-23T14:45:00Z',
+					points: 0,
+				}, //!
+				{
+					userId: 5,
+					name: 'Eva Green',
+					email: 'eva@example.com',
+					phone: '9765432100',
+					gPayNumber: '9765432100',
+					college: 'Amrita Coimbatore',
+					district: 'Coimbatore',
+					updatedAt: '2026-02-24T16:00:00Z',
+					points: 55,
+				}, //!
+			]
+			setUsers(fakeUsers)
+			setTotal(fakeUsers.length)
+			setLoading(false)
+		}, 500) //! Simulated loading delay
+		/*
 		try {
 			const { data } = await axios.post(
 				'/api/admin/get-ca?verified=true',
 				{},
-				{
-					headers: {
-						Authorization: `Bearer ${jwt}`,
-					},
-				}
+				{ headers: { Authorization: `Bearer ${jwt}` } }
 			)
 			setUsers(data.users || data.data || data || [])
 			setTotal(data.total || (data.users || data.data || data || []).length)
@@ -50,6 +110,7 @@ export default function AdminOverview() {
 			setError('Failed to fetch users')
 		}
 		setLoading(false)
+		*/
 	}
 
 	function formatDate(dateStr) {
@@ -73,6 +134,7 @@ export default function AdminOverview() {
 			'GPay No.',
 			'College',
 			'District',
+			'Points',
 			'Registered On',
 		]
 		const rows = filteredUsers.map((user, index) => [
@@ -83,6 +145,7 @@ export default function AdminOverview() {
 			user.gPayNumber || '--',
 			user.college || user.collegeName || '--',
 			user.district || '--',
+			user.points ?? '--',
 			formatDate(user.updatedAt),
 		])
 
@@ -161,12 +224,15 @@ export default function AdminOverview() {
 									<td>{user.gPayNumber || '--'}</td>
 									<td>{user.college || user.collegeName || '--'}</td>
 									<td>{user.district || '--'}</td>
+									<td>
+										<span className='admin-points-badge'>{user.points ?? '--'}</span>
+									</td>
 									<td>{formatDate(user.updatedAt)}</td>
 								</tr>
 							))
 						) : (
 							<tr>
-								<td colSpan={8} className='admin-empty-row'>
+								<td colSpan={9} className='admin-empty-row'>
 									No users found
 								</td>
 							</tr>

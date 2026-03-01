@@ -43,16 +43,22 @@ export default function SideNav({ userDb, points, onClose }) {
 					<img src='/images/posters.png' alt='🌁' /> Posters
 				</Link>
 				<Link
-					href='/dashboard/feedback'
-					className={router.pathname === '/dashboard/feedback' ? 'active' : ''}
-				>
-					<img src='/images/feedback.png' alt='✍️' /> Feedback
-				</Link>
-				<Link
 					href='/dashboard/whatsapp'
 					className={router.pathname === '/dashboard/whatsapp' ? 'active' : ''}
 				>
 					<img src='/images/whatsapp.png' alt='✅' /> Whatsapp
+				</Link>
+				<Link
+					href='/dashboard/referrals'
+					className={router.pathname === '/dashboard/referrals' ? 'active' : ''}
+				>
+					<img src='/images/referrals.png' alt='🔗' /> Referrals
+				</Link>
+				<Link
+					href='/dashboard/feedback'
+					className={router.pathname === '/dashboard/feedback' ? 'active' : ''}
+				>
+					<img src='/images/feedback.png' alt='✍️' /> Feedback
 				</Link>
 				{/* <Link href='#'>
 					<a onClick={logout}>
