@@ -1,4 +1,7 @@
-import AdminTable from './AdminTable.js'
+import { useEffect, useState } from 'react'
+import { useUserContext } from 'context/UserContext'
+import axios from 'axios'
+import { BiSearch, BiDownload } from 'react-icons/bi'
 
 export default function AdminOverview() {
 	const { jwt } = useUserContext()
@@ -207,6 +210,7 @@ export default function AdminOverview() {
 							<th>GPay No.</th>
 							<th>College</th>
 							<th>District</th>
+							<th>Points</th>
 							<th>Registered On</th>
 						</tr>
 					</thead>

@@ -132,268 +132,166 @@ export default function Whatsapp() {
 	}
 
 	if (!sectionsConfig?.whatsapp) return <NotActive />
+
+	const platformColor = platform === 'whatsapp' ? '#25d366' : '#e1306c'
+
 	return (
 		<div className='dashboard-main-content'>
-			<div className='feedback-content'>
-				{/* Join WhatsApp Group Button */}
-				<div style={{ marginBottom: '2rem' }}>
-					<a href={sectionsConfig?.whatsappLink} target='_blank' rel='noopener noreferrer'>
-						<button className='btn-secondary'>Join our WhatsApp group</button>
+			<div className='wa-page'>
+
+				{/* ── Hero banner ── */}
+				<div className='wa-hero'>
+					<div className='wa-hero-text'>
+						<h2 className='wa-hero-title'>Screenshots &amp; Promotions</h2>
+						<p className='wa-hero-sub'>
+							Share your WhatsApp or Instagram story screenshots to earn points.
+						</p>
+					</div>
+					<a href={sectionsConfig?.whatsappLink} target='_blank' rel='noopener noreferrer' className='wa-join-btn'>
+						<svg width='20' height='20' viewBox='0 0 24 24' fill='currentColor'>
+							<path d='M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z'/>
+							<path d='M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.852L.057 23.57a.75.75 0 0 0 .916.919l5.83-1.527A11.95 11.95 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.896 0-3.676-.51-5.21-1.402l-.374-.22-3.868 1.013 1.03-3.772-.242-.388A9.956 9.956 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z'/>
+						</svg>
+						Join our WhatsApp Group
 					</a>
 				</div>
 
-				{/* Screenshot Upload Section */}
-				<div
-					style={{
-						background: 'rgba(255, 255, 255, 0.05)',
-						padding: '2rem',
-						borderRadius: '12px',
-						marginTop: '2rem',
-					}}
-				>
-					<h3 style={{ marginBottom: '1rem' }}>Submit Screenshots</h3>
-					<p style={{ marginBottom: '1.5rem', opacity: 0.8 }}>
-						Share your WhatsApp or Instagram story screenshots
-					</p>
-
-					{/* Platform Selection */}
-					<div style={{ marginBottom: '1.5rem' }}>
-						<label style={{ display: 'block', marginBottom: '0.5rem' }}>Select Platform:</label>
-						<div style={{ display: 'flex', gap: '1rem' }}>
-							<button
-								className={platform === 'whatsapp' ? 'btn-secondary' : 'btn-outline'}
-								onClick={() => setPlatform('whatsapp')}
-								style={{ padding: '0.5rem 1.5rem' }}
-							>
-								WhatsApp
-							</button>
-							<button
-								className={platform === 'instagram' ? 'btn-secondary' : 'btn-outline'}
-								onClick={() => setPlatform('instagram')}
-								style={{ padding: '0.5rem 1.5rem' }}
-							>
-								Instagram
-							</button>
-						</div>
+				{/* ── Upload card ── */}
+				<div className='wa-card'>
+					<div className='wa-card-header'>
+						<span className='wa-card-title'>Submit Screenshots</span>
+						<span className='wa-card-hint'>Max 3 images per submission</span>
 					</div>
 
-					{/* File Upload */}
-					<div style={{ marginBottom: '1.5rem' }}>
-						<label
-							htmlFor='screenshot-upload'
-							style={{
-								display: 'block',
-								padding: '2rem',
-								border: '2px dashed rgba(255, 255, 255, 0.3)',
-								borderRadius: '8px',
-								textAlign: 'center',
-								cursor: 'pointer',
-								transition: 'all 0.2s',
-							}}
-							onMouseEnter={(e) => {
-								e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.6)'
-							}}
-							onMouseLeave={(e) => {
-								e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.3)'
-							}}
+					{/* Platform toggle */}
+					<div className='wa-platform-row'>
+						<button
+							className={`wa-platform-btn ${platform === 'whatsapp' ? 'active whatsapp' : ''}`}
+							onClick={() => setPlatform('whatsapp')}
 						>
-							<input
-								id='screenshot-upload'
-								type='file'
-								accept='image/*'
-								multiple
-								onChange={handleFileChange}
-								style={{ display: 'none' }}
-							/>
-							<p>Click to upload screenshots (Max 3)</p>
-							{selectedFiles.length > 0 && (
-								<p style={{ marginTop: '0.5rem', color: '#4ade80' }}>
-									{selectedFiles.length} file(s) selected
-								</p>
-							)}
-						</label>
-
-						{/* Image Preview */}
-						{selectedFiles.length > 0 && (
-							<div
-								style={{
-									display: 'grid',
-									gridTemplateColumns: 'repeat(auto-fill, minmax(100px, 1fr))',
-									gap: '1rem',
-									marginTop: '1rem',
-								}}
-							>
-								{Array.from(selectedFiles).map((file, index) => (
-									<div
-										key={index}
-										style={{
-											position: 'relative',
-											aspectRatio: '1',
-											borderRadius: '8px',
-											overflow: 'hidden',
-											border: '2px solid rgba(255, 255, 255, 0.1)',
-										}}
-									>
-										<img
-											src={URL.createObjectURL(file)}
-											alt={`Preview ${index + 1}`}
-											style={{
-												width: '100%',
-												height: '100%',
-												objectFit: 'cover',
-											}}
-										/>
-										<button
-											onClick={(e) => {
-												e.preventDefault()
-												const newFiles = Array.from(selectedFiles).filter((_, i) => i !== index)
-												setSelectedFiles(newFiles)
-											}}
-											style={{
-												position: 'absolute',
-												top: '4px',
-												right: '4px',
-												background: 'rgba(0, 0, 0, 0.7)',
-												border: 'none',
-												borderRadius: '50%',
-												width: '24px',
-												height: '24px',
-												cursor: 'pointer',
-												color: 'white',
-												display: 'flex',
-												alignItems: 'center',
-												justifyContent: 'center',
-												fontSize: '16px',
-											}}
-											title='Remove'
-										>
-											×
-										</button>
-										<p
-											style={{
-												position: 'absolute',
-												bottom: '0',
-												left: '0',
-												right: '0',
-												background: 'rgba(0, 0, 0, 0.7)',
-												padding: '4px',
-												fontSize: '10px',
-												textAlign: 'center',
-												whiteSpace: 'nowrap',
-												overflow: 'hidden',
-												textOverflow: 'ellipsis',
-											}}
-										>
-											{file.name}
-										</p>
-									</div>
-								))}
-							</div>
-						)}
+							<svg width='16' height='16' viewBox='0 0 24 24' fill='currentColor'>
+								<path d='M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z'/>
+								<path d='M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.852L.057 23.57a.75.75 0 0 0 .916.919l5.83-1.527A11.95 11.95 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.896 0-3.676-.51-5.21-1.402l-.374-.22-3.868 1.013 1.03-3.772-.242-.388A9.956 9.956 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z'/>
+							</svg>
+							WhatsApp
+						</button>
+						<button
+							className={`wa-platform-btn ${platform === 'instagram' ? 'active instagram' : ''}`}
+							onClick={() => setPlatform('instagram')}
+						>
+							<svg width='16' height='16' viewBox='0 0 24 24' fill='currentColor'>
+								<path d='M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z'/>
+							</svg>
+							Instagram
+						</button>
 					</div>
 
-					{/* Progress Bar */}
-					{isSubmitting && (
-						<div style={{ marginBottom: '1rem' }}>
-							<div
-								style={{
-									width: '100%',
-									height: '8px',
-									background: 'rgba(255, 255, 255, 0.1)',
-									borderRadius: '4px',
-									overflow: 'hidden',
-								}}
-							>
-								<div
-									style={{
-										width: `${uploadProgress}%`,
-										height: '100%',
-										background: '#4ade80',
-										transition: 'width 0.3s',
-									}}
-								/>
-							</div>
-							<p style={{ marginTop: '0.5rem', fontSize: '0.9rem' }}>
-								Uploading... {uploadProgress}%
-							</p>
+					{/* Drop zone */}
+					<label htmlFor='screenshot-upload' className='wa-dropzone'>
+						<input
+							id='screenshot-upload'
+							type='file'
+							accept='image/*'
+							multiple
+							onChange={handleFileChange}
+							style={{ display: 'none' }}
+						/>
+						<svg className='wa-upload-icon' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='1.5'>
+							<path strokeLinecap='round' strokeLinejoin='round' d='M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5'/>
+						</svg>
+						{selectedFiles.length === 0 ? (
+							<>
+								<span className='wa-dropzone-main'>Click to upload screenshots</span>
+								<span className='wa-dropzone-sub'>PNG, JPG, WEBP — max 3 files</span>
+							</>
+						) : (
+							<span className='wa-dropzone-main' style={{ color: '#4ade80' }}>
+								{selectedFiles.length} file{selectedFiles.length > 1 ? 's' : ''} selected
+							</span>
+						)}
+					</label>
+
+					{/* Preview grid */}
+					{selectedFiles.length > 0 && (
+						<div className='wa-preview-grid'>
+							{Array.from(selectedFiles).map((file, index) => (
+								<div key={index} className='wa-preview-item'>
+									<img src={URL.createObjectURL(file)} alt={`Preview ${index + 1}`} className='wa-preview-img' />
+									<button
+										className='wa-preview-remove'
+										onClick={(e) => {
+											e.preventDefault()
+											setSelectedFiles(Array.from(selectedFiles).filter((_, i) => i !== index))
+										}}
+										title='Remove'
+									>
+										×
+									</button>
+									<span className='wa-preview-name'>{file.name}</span>
+								</div>
+							))}
 						</div>
 					)}
 
-					{/* Submit Button */}
+					{/* Progress bar */}
+					{isSubmitting && (
+						<div className='wa-progress-wrap'>
+							<div className='wa-progress-bar'>
+								<div className='wa-progress-fill' style={{ width: `${uploadProgress}%` }} />
+							</div>
+							<span className='wa-progress-label'>Uploading… {uploadProgress}%</span>
+						</div>
+					)}
+
 					<button
-						className='btn-secondary'
+						className='wa-submit-btn'
 						onClick={handleSubmit}
 						disabled={isSubmitting || !selectedFiles.length}
-						style={{
-							opacity: isSubmitting || !selectedFiles.length ? 0.5 : 1,
-							cursor: isSubmitting || !selectedFiles.length ? 'not-allowed' : 'pointer',
-						}}
 					>
-						{isSubmitting ? 'Submitting...' : 'Submit Screenshots'}
+						{isSubmitting ? (
+							<>
+								<span className='wa-spinner' /> Submitting…
+							</>
+						) : (
+							<>
+								<svg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='2'>
+									<path strokeLinecap='round' strokeLinejoin='round' d='M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5'/>
+								</svg>
+								Submit Screenshots
+							</>
+						)}
 					</button>
 				</div>
 
-				{/* Previous Submissions */}
+				{/* ── Previous submissions ── */}
 				{submissions.length > 0 && (
-					<div style={{ marginTop: '2rem' }}>
-						<h3 style={{ marginBottom: '1rem' }}>Your Submissions</h3>
-						<div
-							style={{
-								display: 'grid',
-								gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
-								gap: '1rem',
-							}}
-						>
+					<div className='wa-submissions'>
+						<h3 className='wa-submissions-title'>Your Submissions</h3>
+						<div className='wa-submissions-grid'>
 							{submissions.map((sub) => (
-								<div
-									key={sub.id}
-									style={{
-										background: 'rgba(255, 255, 255, 0.05)',
-										padding: '1rem',
-										borderRadius: '8px',
-									}}
-								>
-									<p style={{ textTransform: 'capitalize', marginBottom: '0.5rem' }}>
-										{sub.platform}
-									</p>
-									<p
-										style={{
-											fontSize: '0.85rem',
-											opacity: 0.7,
-											marginBottom: '0.5rem',
-										}}
-									>
-										{new Date(sub.createdAt).toLocaleDateString()}
-									</p>
-									<p
-										style={{
-											fontSize: '0.85rem',
-											color: sub.status === 'approved' ? '#4ade80' : '#fbbf24',
-										}}
-									>
-										Status: {sub.status || 'Pending'}
-									</p>
+								<div key={sub.id} className={`wa-sub-card ${sub.status}`}>
+									<div className='wa-sub-top'>
+										<span className={`wa-sub-platform ${sub.platform}`}>
+											{sub.platform === 'whatsapp' ? (
+												<svg width='13' height='13' viewBox='0 0 24 24' fill='currentColor'>
+													<path d='M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z'/><path d='M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.852L.057 23.57a.75.75 0 0 0 .916.919l5.83-1.527A11.95 11.95 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.896 0-3.676-.51-5.21-1.402l-.374-.22-3.868 1.013 1.03-3.772-.242-.388A9.956 9.956 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z'/>
+												</svg>
+											) : (
+												<svg width='13' height='13' viewBox='0 0 24 24' fill='currentColor'>
+													<path d='M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z'/>
+												</svg>
+											)}
+											{sub.platform.charAt(0).toUpperCase() + sub.platform.slice(1)}
+										</span>
+										<span className={`wa-sub-status ${sub.status}`}>
+											{sub.status === 'approved' ? '✓ Approved' : sub.status === 'rejected' ? '✕ Rejected' : '⏳ Pending'}
+										</span>
+									</div>
+									<span className='wa-sub-date'>{new Date(sub.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
 									{sub.images && sub.images.length > 0 && (
-										<div
-											style={{
-												marginTop: '0.5rem',
-												display: 'flex',
-												gap: '0.5rem',
-												flexWrap: 'wrap',
-											}}
-										>
+										<div className='wa-sub-images'>
 											{sub.images.map((img) => (
-												<img
-													key={img.id}
-													src={img.url}
-													alt='Screenshot'
-													style={{
-														width: '60px',
-														height: '60px',
-														objectFit: 'cover',
-														borderRadius: '4px',
-													}}
-												/>
+												<img key={img.id} src={img.url} alt='Screenshot' className='wa-sub-thumb' />
 											))}
 										</div>
 									)}
@@ -402,6 +300,7 @@ export default function Whatsapp() {
 						</div>
 					</div>
 				)}
+
 			</div>
 		</div>
 	)

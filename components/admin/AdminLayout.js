@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useUserContext } from 'context/UserContext'
 import Link from 'next/link'
-import { BiGridAlt, BiLogOut, BiCloudUpload, BiMenu, BiChevronLeft } from 'react-icons/bi'
+import { BiGridAlt, BiLogOut, BiCloudUpload, BiMenu, BiChevronLeft, BiImageAlt } from 'react-icons/bi'
 
 export default function AdminLayout({ children }) {
 	const router = useRouter()
@@ -62,6 +62,15 @@ export default function AdminLayout({ children }) {
 					>
 						<BiGridAlt size={18} />
 						Overview
+					</Link>
+
+					<Link
+						href='/admin/uploads'
+						className={`admin-nav-item ${router.pathname.startsWith('/admin/uploads') ? 'active' : ''}`}
+						onClick={closeSidebar}
+					>
+						<BiImageAlt size={18} />
+						Uploads
 					</Link>
 
 					{/* NEW LINK INTEGRATED */}
