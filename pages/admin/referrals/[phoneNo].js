@@ -12,7 +12,7 @@ function CAProfileCard({ ca }) {
 				background: '#1e1e2e',
 				borderRadius: '12px',
 				padding: '20px 24px',
-				marginTop: '20px',
+				marginTop: '12px',
 				display: 'grid',
 				gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
 				gap: '16px',
@@ -253,7 +253,7 @@ export default function ReferralDetail() {
 
 			{caProfile && <CAProfileCard ca={caProfile} />}
 
-			<div className='admin-table-container' style={{ marginTop: '20px' }}>
+			<div className='admin-table-container' style={{ marginTop: '12px' }}>
 				<table className='admin-table'>
 					<thead>
 						<tr>
