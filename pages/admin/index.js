@@ -7,6 +7,7 @@ export default function AdminIndex() {
   useEffect(() => {
     router.replace('/admin/overview')
   }, [])
+  
 
   return null
 }
