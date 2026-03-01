@@ -10,17 +10,27 @@ axios.defaults.withCredentials = true
 export default function UserContextWrapper({ children }) {
 	const router = useRouter()
 
-	const [user, setUser] = useState(null)
-	const [jwt, setJwt] = useState(null)
-	const [isLoggedIn, setIsLoggedIn] = useState(false)
+	//! FAKE DATA FOR FRONTEND TESTING - NO BACKEND
+	const [user, setUser] = useState({
+		name: 'John Doe',
+		email: 'john.doe@example.com',
+		role: 'user',
+		imageUrl: 'https://i.pravatar.cc/150?img=12',
+		points: 150,
+		refCode: 'REF123ABC',
+		caId: 'ca-001',
+		is_profile_completed: true,
+	})
+	const [jwt, setJwt] = useState('fake-jwt-token-for-testing')
+	const [isLoggedIn, setIsLoggedIn] = useState(true) //! Always logged in for testing
 	const [sectionsConfig, setSectionsConfig] = useState({
-		posters: false,
-		referrals: false,
-		feedback: false,
-		whatsapp: false,
+		posters: true, //! Enabled
+		referrals: true, //! Enabled
+		feedback: true, //! Enabled
+		whatsapp: true, //! Enabled
 		leaderboard: true,
 		regOpen: true,
-		whatsappLink: '',
+		whatsappLink: 'https://chat.whatsapp.com/fake-link', //! Fake link
 	})
 
 	useEffect(() => {
@@ -88,6 +98,9 @@ export default function UserContextWrapper({ children }) {
 	}
 
 	function getUser() {
+		//! BYPASSING BACKEND - Return fake user directly
+		return Promise.resolve(user)
+		/*
 		return new Promise(async (resolve, reject) => {
 			try {
 				let jwt = localStorage.getItem('jwt')
@@ -97,6 +110,7 @@ export default function UserContextWrapper({ children }) {
 				reject(err)
 			}
 		})
+		*/
 	}
 
 	return (

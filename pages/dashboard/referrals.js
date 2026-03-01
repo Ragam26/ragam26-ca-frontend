@@ -15,6 +15,54 @@ export default function Referals() {
 
 	useEffect(() => {
 		if (!sectionsConfig?.referrals) return
+		//! BYPASSING BACKEND - Using fake referrals data
+		setTimeout(() => {
+			const fakeReferrals = [
+				{
+					id: 1,
+					name: 'Sarah Connor',
+					email: 'sarah.connor@example.com',
+					event: 'AI Workshop',
+					points: 2500,
+					date: '2026-02-28',
+				},
+				{
+					id: 2,
+					name: 'John Wick',
+					email: 'john.wick@example.com',
+					event: 'Hackathon 2026',
+					points: 1500,
+					date: '2026-02-27',
+				},
+				{
+					id: 3,
+					name: 'Tony Stark',
+					email: 'tony@starkindustries.com',
+					event: 'Tech Talk',
+					points: 1250,
+					date: '2026-02-26',
+				},
+				{
+					id: 4,
+					name: 'Hermione Granger',
+					email: 'hermione@hogwarts.edu',
+					event: 'Registration',
+					points: 500,
+					date: '2026-02-25',
+				},
+				{
+					id: 5,
+					name: 'Peter Parker',
+					email: 'spiderman@dailybugle.com',
+					event: 'Cultural Evening',
+					points: 1250,
+					date: '2026-02-24',
+				},
+			]
+			setReferrals(fakeReferrals)
+			setLoading(false)
+		}, 500)
+		/*
 		fetchReferrals()
 			.then((data) => {
 				setReferrals(data)
@@ -24,6 +72,7 @@ export default function Referals() {
 				console.error(err)
 				toast.error('Failed to load referrals')
 			})
+		*/
 	}, [sectionsConfig])
 
 	if (!sectionsConfig?.referrals) return <NotActive />
