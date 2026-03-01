@@ -1,7 +1,4 @@
-import { useEffect, useState } from 'react'
-import { useUserContext } from 'context/UserContext'
-import axios from 'axios'
-import { BiSearch, BiDownload } from 'react-icons/bi'
+import AdminTable from './AdminTable.js'
 
 export default function AdminOverview() {
 	const { jwt } = useUserContext()
