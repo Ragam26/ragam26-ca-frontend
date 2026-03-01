@@ -39,7 +39,8 @@ export default function Posters() {
 						'Join our exciting workshop on AI and ML! Learn from industry experts.\n\nDate: March 15, 2026\nTime: 10:00 AM',
 					hide: false,
 					registerLink: 'https://example.com/register/ai-workshop',
-					image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=600&fit=crop',
+					image:
+						'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=600&fit=crop',
 				},
 				{
 					posterId: 2,
@@ -48,7 +49,8 @@ export default function Posters() {
 						'Experience the grandest cultural fest! Music, dance, and more.\n\nVenue: Main Auditorium',
 					hide: false,
 					registerLink: 'https://example.com/register/cultural-night',
-					image: 'https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=400&h=600&fit=crop',
+					image:
+						'https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=400&h=600&fit=crop',
 				},
 				{
 					posterId: 3,
@@ -56,7 +58,8 @@ export default function Posters() {
 					description: 'Discover the latest trends in web development with our expert speakers.',
 					hide: false,
 					registerLink: 'https://example.com/register/tech-talk',
-					image: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=400&h=600&fit=crop',
+					image:
+						'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=400&h=600&fit=crop',
 				},
 			]
 
@@ -66,7 +69,8 @@ export default function Posters() {
 					submissionId: 101,
 					posterId: 1,
 					posterTitle: 'Workshop on AI & Machine Learning',
-					posterImageUrl: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=600&fit=crop',
+					posterImageUrl:
+						'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=600&fit=crop',
 					hide: false,
 					registerLink: 'https://example.com/register/ai-workshop',
 					comment: 'Shared on my Instagram story and WhatsApp status!',
@@ -75,8 +79,14 @@ export default function Posters() {
 					remarks: 'Great submission!',
 					status: 'approved',
 					images: [
-						{ id: 1, url: 'https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=300&h=600&fit=crop' },
-						{ id: 2, url: 'https://images.unsplash.com/photo-1611162618071-b39a2ec055fb?w=300&h=600&fit=crop' },
+						{
+							id: 1,
+							url: 'https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=300&h=600&fit=crop',
+						},
+						{
+							id: 2,
+							url: 'https://images.unsplash.com/photo-1611162618071-b39a2ec055fb?w=300&h=600&fit=crop',
+						},
 					],
 				},
 				{
@@ -84,7 +94,8 @@ export default function Posters() {
 					submissionId: 102,
 					posterId: 2,
 					posterTitle: 'Cultural Night - Ragam 2026',
-					posterImageUrl: 'https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=400&h=600&fit=crop',
+					posterImageUrl:
+						'https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=400&h=600&fit=crop',
 					hide: false,
 					registerLink: 'https://example.com/register/cultural-night',
 					comment: 'Posted on my social media!',
@@ -93,7 +104,10 @@ export default function Posters() {
 					remarks: '',
 					status: 'pending',
 					images: [
-						{ id: 3, url: 'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=300&h=600&fit=crop' },
+						{
+							id: 3,
+							url: 'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=300&h=600&fit=crop',
+						},
 					],
 				},
 			]

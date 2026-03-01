@@ -52,9 +52,7 @@ export default function Whatsapp() {
 					platform: 'whatsapp',
 					status: 'approved',
 					createdAt: '2026-02-26T09:20:00Z',
-					images: [
-						{ id: 4, url: 'https://placehold.co/300x600/fbbf24/ffffff?text=WA+Screenshot' },
-					],
+					images: [{ id: 4, url: 'https://placehold.co/300x600/fbbf24/ffffff?text=WA+Screenshot' }],
 				},
 			]
 			setSubmissions(fakeData)
@@ -215,111 +213,111 @@ export default function Whatsapp() {
 							)}
 						</label>
 
-				{/* Image Preview */}
-				{selectedFiles.length > 0 && (
-					<div
-						style={{
-							display: 'grid',
-							gridTemplateColumns: 'repeat(auto-fill, minmax(100px, 1fr))',
-							gap: '1rem',
-							marginTop: '1rem',
-						}}
-					>
-						{Array.from(selectedFiles).map((file, index) => (
+						{/* Image Preview */}
+						{selectedFiles.length > 0 && (
 							<div
-								key={index}
 								style={{
-									position: 'relative',
-									aspectRatio: '1',
-									borderRadius: '8px',
-									overflow: 'hidden',
-									border: '2px solid rgba(255, 255, 255, 0.1)',
+									display: 'grid',
+									gridTemplateColumns: 'repeat(auto-fill, minmax(100px, 1fr))',
+									gap: '1rem',
+									marginTop: '1rem',
 								}}
 							>
-								<img
-									src={URL.createObjectURL(file)}
-									alt={`Preview ${index + 1}`}
+								{Array.from(selectedFiles).map((file, index) => (
+									<div
+										key={index}
+										style={{
+											position: 'relative',
+											aspectRatio: '1',
+											borderRadius: '8px',
+											overflow: 'hidden',
+											border: '2px solid rgba(255, 255, 255, 0.1)',
+										}}
+									>
+										<img
+											src={URL.createObjectURL(file)}
+											alt={`Preview ${index + 1}`}
+											style={{
+												width: '100%',
+												height: '100%',
+												objectFit: 'cover',
+											}}
+										/>
+										<button
+											onClick={(e) => {
+												e.preventDefault()
+												const newFiles = Array.from(selectedFiles).filter((_, i) => i !== index)
+												setSelectedFiles(newFiles)
+											}}
+											style={{
+												position: 'absolute',
+												top: '4px',
+												right: '4px',
+												background: 'rgba(0, 0, 0, 0.7)',
+												border: 'none',
+												borderRadius: '50%',
+												width: '24px',
+												height: '24px',
+												cursor: 'pointer',
+												color: 'white',
+												display: 'flex',
+												alignItems: 'center',
+												justifyContent: 'center',
+												fontSize: '16px',
+											}}
+											title='Remove'
+										>
+											×
+										</button>
+										<p
+											style={{
+												position: 'absolute',
+												bottom: '0',
+												left: '0',
+												right: '0',
+												background: 'rgba(0, 0, 0, 0.7)',
+												padding: '4px',
+												fontSize: '10px',
+												textAlign: 'center',
+												whiteSpace: 'nowrap',
+												overflow: 'hidden',
+												textOverflow: 'ellipsis',
+											}}
+										>
+											{file.name}
+										</p>
+									</div>
+								))}
+							</div>
+						)}
+					</div>
+
+					{/* Progress Bar */}
+					{isSubmitting && (
+						<div style={{ marginBottom: '1rem' }}>
+							<div
+								style={{
+									width: '100%',
+									height: '8px',
+									background: 'rgba(255, 255, 255, 0.1)',
+									borderRadius: '4px',
+									overflow: 'hidden',
+								}}
+							>
+								<div
 									style={{
-										width: '100%',
+										width: `${uploadProgress}%`,
 										height: '100%',
-										objectFit: 'cover',
+										background: '#4ade80',
+										transition: 'width 0.3s',
 									}}
 								/>
-								<button
-									onClick={(e) => {
-										e.preventDefault()
-										const newFiles = Array.from(selectedFiles).filter((_, i) => i !== index)
-										setSelectedFiles(newFiles)
-									}}
-									style={{
-										position: 'absolute',
-										top: '4px',
-										right: '4px',
-										background: 'rgba(0, 0, 0, 0.7)',
-										border: 'none',
-										borderRadius: '50%',
-										width: '24px',
-										height: '24px',
-										cursor: 'pointer',
-										color: 'white',
-										display: 'flex',
-										alignItems: 'center',
-										justifyContent: 'center',
-										fontSize: '16px',
-									}}
-									title='Remove'
-								>
-										×
-								</button>
-								<p
-									style={{
-										position: 'absolute',
-										bottom: '0',
-										left: '0',
-										right: '0',
-										background: 'rgba(0, 0, 0, 0.7)',
-										padding: '4px',
-										fontSize: '10px',
-										textAlign: 'center',
-										whiteSpace: 'nowrap',
-										overflow: 'hidden',
-										textOverflow: 'ellipsis',
-									}}
-								>
-									{file.name}
-								</p>
 							</div>
-						))}
-					</div>
-				)}
-			</div>
-
-			{/* Progress Bar */}
-			{isSubmitting && (
-				<div style={{ marginBottom: '1rem' }}>
-					<div
-						style={{
-							width: '100%',
-							height: '8px',
-							background: 'rgba(255, 255, 255, 0.1)',
-							borderRadius: '4px',
-							overflow: 'hidden',
-						}}
-					>
-						<div
-							style={{
-								width: `${uploadProgress}%`,
-								height: '100%',
-								background: '#4ade80',
-								transition: 'width 0.3s',
-							}}
-						/>
-					</div>
-					<p style={{ marginTop: '0.5rem', fontSize: '0.9rem' }}>
-						Uploading... {uploadProgress}%
-					</p>
-				</div>
-			)}
+							<p style={{ marginTop: '0.5rem', fontSize: '0.9rem' }}>
+								Uploading... {uploadProgress}%
+							</p>
+						</div>
+					)}
 
 					{/* Submit Button */}
 					<button
