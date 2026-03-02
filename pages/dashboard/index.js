@@ -23,7 +23,7 @@ export default function Dashboard() {
 			router.push('/dashboard/referrals')
 		} else {
 			// If no sections are available, redirect to home
-			router.push('/')
+		router.push('/')
 		}
 	}, [isLoggedIn, sectionsConfig, router])
 

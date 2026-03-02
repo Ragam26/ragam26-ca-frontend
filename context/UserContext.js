@@ -13,33 +13,20 @@ export default function UserContextWrapper({ children }) {
 	const [user, setUser] = useState(null)
 	const [jwt, setJwt] = useState(null)
 	const [isLoggedIn, setIsLoggedIn] = useState(false)
-	const [sectionsConfig, setSectionsConfig] = useState(null)
 
 	useEffect(() => {
 		let jwt = localStorage.getItem('jwt')
 		if (jwt) setAuthenticatedUser(jwt)
 	}, [])
 
-	useEffect(() => {
-		;(async () => {
-			try {
-				const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/config`)
-				console.log('Fetched sections config:', data)
-				const temp = data?.data?.attributes ?? data
-				setSectionsConfig({
-					feedback: temp.feedback,
-					posters: temp.posters,
-					referrals: temp.referrals,
-					whatsapp: temp.joinWhatsappGroup ?? temp.whatsapp,
-					leaderboard: temp.leaderboard,
-					regOpen: temp.regOpen,
-					whatsappLink: temp.whatsapp_link ?? temp.whatsappLink,
-				})
-			} catch (err) {
-				console.error('Failed to fetch sections config:', err)
-			}
-		})()
-	}, [])
+	const [sectionsConfig, setSectionsConfig] = useState({
+		feedback: false,
+		posters: false,
+		referrals: true,
+		whatsapp: true,
+		leaderboard: true,
+		regOpen: true,
+		whatsappLink: 'https://chat.whatsapp.com/C0FA6SNtbYY2PQ9lvgsWsY?mode=hq2tsha'});
 
 	const setAuthenticatedUser = async (jwt) => {
 		try {
@@ -55,6 +42,7 @@ export default function UserContextWrapper({ children }) {
 					withCredentials: true,
 				}
 			)
+			console.log('Auth Verify Response Data:', data);
 
 			let currentUser = {
 				name: data.user.name,
@@ -64,7 +52,8 @@ export default function UserContextWrapper({ children }) {
 				caId: data.user.caId ?? data.user.id,
 				refCode: data.user.refCode ?? data.user.referralCode,
 				points: data.user.points ?? 0,
-				is_profile_completed: data.user.is_profile_completed ?? !!data.user.name,
+				phoneNo: data.user.phoneNo,
+				is_profile_completed: data.user.isProfileComplete || false,
 			}
 			localStorage.setItem('jwt', jwt)
 			setUser(currentUser)

@@ -14,56 +14,14 @@ export default function Referals() {
 	const [referrals, setReferrals] = useState([])
 
 	useEffect(() => {
-		if (!sectionsConfig?.referrals) return
-		//! BYPASSING BACKEND - Using fake referrals data
-		setTimeout(() => {
-			const fakeReferrals = [
-				{
-					id: 1,
-					name: 'Sarah Connor',
-					email: 'sarah.connor@example.com',
-					event: 'AI Workshop',
-					points: 2500,
-					date: '2026-02-28',
-				},
-				{
-					id: 2,
-					name: 'John Wick',
-					email: 'john.wick@example.com',
-					event: 'Hackathon 2026',
-					points: 1500,
-					date: '2026-02-27',
-				},
-				{
-					id: 3,
-					name: 'Tony Stark',
-					email: 'tony@starkindustries.com',
-					event: 'Tech Talk',
-					points: 1250,
-					date: '2026-02-26',
-				},
-				{
-					id: 4,
-					name: 'Hermione Granger',
-					email: 'hermione@hogwarts.edu',
-					event: 'Registration',
-					points: 500,
-					date: '2026-02-25',
-				},
-				{
-					id: 5,
-					name: 'Peter Parker',
-					email: 'spiderman@dailybugle.com',
-					event: 'Cultural Evening',
-					points: 1250,
-					date: '2026-02-24',
-				},
-			]
-			setReferrals(fakeReferrals)
-			setLoading(false)
-		}, 500)
-		/*
-		fetchReferrals()
+		console.log('Referrals useEffect triggered', {
+			regOpen: sectionsConfig?.referrals,
+			phoneNo: user?.phoneNo,
+			user: user,
+		})
+		if (!sectionsConfig?.referrals || !user?.phoneNo) return
+
+		fetchReferrals(user.jwt || localStorage.getItem('jwt'), user?.phoneNo)
 			.then((data) => {
 				setReferrals(data)
 				setLoading(false)
@@ -72,8 +30,7 @@ export default function Referals() {
 				console.error(err)
 				toast.error('Failed to load referrals')
 			})
-		*/
-	}, [sectionsConfig])
+	}, [sectionsConfig, user])
 
 	if (!sectionsConfig?.referrals) return <NotActive />
 	else if (loading) return <DashboardLoading />
@@ -81,13 +38,13 @@ export default function Referals() {
 		return (
 			<div className='dashboard-main-content'>
 				<div className='referral-code'>
-					<div className='code'>REF</div>
-					<div>{user?.refCode || '--'}</div>
+					<div className='code'>REFERRALS</div>
+					<div>{referrals?.length || 0}</div>
 				</div>
 
 				<div className='spacerv-sm'></div>
 
-				<div className='referrals-points'>
+				{/* <div className='referrals-points'>
 					<h4>Points per Person</h4>
 					<p>
 						Refer friends to Ragam events, workshops and lectures using your unique referrel code to
@@ -117,7 +74,7 @@ export default function Referals() {
 							</tr>
 						</tbody>
 					</table>
-				</div>
+				</div> */}
 				<div className='spacerv-sm'></div>
 				<YourReferrals referrals={referrals} />
 			</div>

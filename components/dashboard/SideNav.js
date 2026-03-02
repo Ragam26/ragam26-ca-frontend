@@ -46,7 +46,7 @@ export default function SideNav({ userDb, points, onClose }) {
 					href='/dashboard/whatsapp'
 					className={router.pathname === '/dashboard/whatsapp' ? 'active' : ''}
 				>
-					<img src='/images/whatsapp.png' alt='✅' /> Whatsapp
+					<img src='/images/upload.png' alt='✅' /> Uploads
 				</Link>
 				<Link
 					href='/dashboard/referrals'
@@ -54,12 +54,12 @@ export default function SideNav({ userDb, points, onClose }) {
 				>
 					<img src='/images/referrals.png' alt='🔗' /> Referrals
 				</Link>
-				<Link
+				{/* <Link
 					href='/dashboard/feedback'
 					className={router.pathname === '/dashboard/feedback' ? 'active' : ''}
 				>
 					<img src='/images/feedback.png' alt='✍️' /> Feedback
-				</Link>
+				</Link> */}
 				{/* <Link href='#'>
 					<a onClick={logout}>
 						<img src='/images/door.png' alt='🚪' /> Logout
