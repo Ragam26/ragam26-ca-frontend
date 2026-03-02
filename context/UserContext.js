@@ -24,6 +24,7 @@ export default function UserContextWrapper({ children }) {
 		;(async () => {
 			try {
 				const { data } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/config`)
+				console.log('Fetched sections config:', data)
 				const temp = data?.data?.attributes ?? data
 				setSectionsConfig({
 					feedback: temp.feedback,
