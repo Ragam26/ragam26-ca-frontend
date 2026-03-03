@@ -122,10 +122,24 @@ export default function UserScreenshotsPage() {
 		try {
 			if (action === 'rewardAll') {
 				const pendingScreenshots = screenshots.filter((s) => s.status === 'pending')
+				const totalReward = Number(pointsInput)
+				const count = pendingScreenshots.length
+				if (count === 0) return
+
+				const pointsPerScreenshot = Math.floor(totalReward / count)
+				let remainder = totalReward % count
+
 				await Promise.all(
-					pendingScreenshots.map((s) =>
-						updateUploadStatus(jwt, s.id, 'approved', Number(pointsInput))
-					)
+					pendingScreenshots.map((s) => {
+						let pointsToGive = pointsPerScreenshot
+
+						if (remainder > 0) {
+							pointsToGive += 1
+							remainder--
+						}
+
+						return updateUploadStatus(jwt, s.id, 'approved', pointsToGive)
+					})
 				)
 			} else {
 				await updateUploadStatus(
