@@ -33,7 +33,19 @@ export default function Referals() {
 	}, [sectionsConfig, user])
 
 	if (!sectionsConfig?.referrals) return <NotActive />
-	else if (loading) return <DashboardLoading />
+	else if (loading)
+		return (
+			<div className='flex items-center justify-center min-h-[300px] px-4'>
+				<div className='text-center'>
+					<h1 className='text-lg md:text-5xl text-center font-semibold text-white'>
+						No referrals yet.
+					</h1>
+					<h4 className='mt-2 text-sm md:text-base text-white'>
+						Start sharing your referral code to earn money.
+					</h4>
+				</div>
+			</div>
+		)
 	else
 		return (
 			<div className='dashboard-main-content'>

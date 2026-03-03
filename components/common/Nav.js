@@ -44,13 +44,6 @@ export default function Nav() {
 							Leaderboard
 						</Link>
 					</li>
-					{isLoggedIn && (
-						<li>
-							<Link href='/dashboard' className={styles['nav-text']}>
-								Dashboard
-							</Link>
-						</li>
-					)}
 					<li>
 						<Link href='/contact' className={styles['nav-text']}>
 							Contact
