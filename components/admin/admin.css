@@ -748,10 +748,11 @@ body:has(.admin-layout) {
 }
 
 .summary-chip.reward-btn {
-	background: #16a34a;
-	color: #fff;
-	border: none;
+	background: #fef9ee;
+	color: #0956b4;
+	border: 1px solid #fde68a;
 	cursor: pointer;
+	transition: all 0.2s ease;
 }
 
 .reward-btn:disabled {
