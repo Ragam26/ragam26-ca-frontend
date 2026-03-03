@@ -1,9 +1,12 @@
 import Link from 'next/link'
 import { IoMdClose } from 'react-icons/io'
+import { useUserContext } from 'context/UserContext'
 
 import styles from './menu.module.css'
 
 export default function Menu({ show, onClose }) {
+	const { isLoggedIn } = useUserContext()
+
 	return (
 		<div className={`${styles['menu']} ${show ? styles['menu-visible'] : styles['menu-hidden']}`}>
 			<div className={styles['navbar']}>
@@ -22,6 +25,14 @@ export default function Menu({ show, onClose }) {
 						Home
 					</Link>
 				</li>
+				{isLoggedIn && (
+					<li>
+						<Link href='/dashboard'>
+							<img src='/images/dashboard.png' alt='📊' />
+							Dashboard
+						</Link>
+					</li>
+				)}
 				<li>
 					<Link href='/leaderboard'>
 						<img src='/images/leaderboard.png' alt='🏆' />

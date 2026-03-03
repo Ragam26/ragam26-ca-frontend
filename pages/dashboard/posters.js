@@ -33,11 +33,12 @@ export default function Posters() {
 			.then(({ posters, submissions }) => {
 				setPosters(posters)
 				setSubmissions(submissions)
-				setLoading(false)
 			})
 			.catch((err) => {
 				console.error(err)
+				toast.error('Failed to load posters')
 			})
+			.finally(() => setLoading(false))
 	}
 
 	function handleSubmit(item) {

@@ -14,7 +14,7 @@ export default function PostersGuide() {
 				</span>
 			</div>
 
-			<div className='dashboard-main-content posters-guide-content'>
+			{/* <div className='dashboard-main-content posters-guide-content'>
 				<div className='posters-guide-details'>
 					<h5>Whatsapp</h5>
 					<p>
@@ -40,7 +40,7 @@ export default function PostersGuide() {
 						stay up for atleast 2 days.
 					</p>
 				</div>
-			</div>
+			</div> */}
 		</div>
 	)
 }
