@@ -24,7 +24,7 @@ function CAProfileCard({ ca }) {
 			<CAField label='Phone' value={ca.phoneNo} />
 			<CAField label='College' value={ca.collegeName} />
 			<CAField label='District' value={ca.district} />
-			<CAField label='Referral Code' value={ca.referralCode} />
+			<CAField label='Referral Code' value={ca.phoneNo} />
 			<CAField label='GPay No.' value={ca.gPayNumber} />
 			<CAField label='Role' value={ca.role} />
 			<CAField label='Profile Complete' value={ca.isProfileComplete ? 'Yes' : 'No'} />

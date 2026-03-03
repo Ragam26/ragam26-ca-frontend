@@ -96,7 +96,7 @@ export default function AdminTable({ title, dataKey, csvName }) {
 			user.gPayNumber || '--',
 			user.collegeName || '--',
 			user.district || '--',
-			user.referralCode || '--',
+			user.phoneNo || '--',
 			formatDate(user.updatedAt),
 		])
 		const csv = [headers, ...rows].map((row) => row.join(',')).join('\n')
