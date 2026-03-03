@@ -111,7 +111,7 @@ export default function UserScreenshotsPage() {
 		const { screenshot, action } = actionModal
 
 		if (
-			action === 'accept' &&
+			(action === 'accept' || action === 'rewardAll') &&
 			(!pointsInput || isNaN(Number(pointsInput)) || Number(pointsInput) < 0)
 		) {
 			alert('Please enter a valid number of points.')
@@ -120,12 +120,21 @@ export default function UserScreenshotsPage() {
 
 		setActionLoading(true)
 		try {
-			await updateUploadStatus(
-				jwt,
-				screenshot.id,
-				action === 'accept' ? 'approved' : 'rejected',
-				action === 'accept' ? Number(pointsInput) : undefined
-			)
+			if (action === 'rewardAll') {
+				const pendingScreenshots = screenshots.filter((s) => s.status === 'pending')
+				await Promise.all(
+					pendingScreenshots.map((s) =>
+						updateUploadStatus(jwt, s.id, 'approved', Number(pointsInput))
+					)
+				)
+			} else {
+				await updateUploadStatus(
+					jwt,
+					screenshot.id,
+					action === 'accept' ? 'approved' : 'rejected',
+					action === 'accept' ? Number(pointsInput) : undefined
+				)
+			}
 			await fetchScreenshots()
 		} catch (err) {
 			console.error('Action failed:', err)
@@ -198,6 +207,16 @@ export default function UserScreenshotsPage() {
 						<BiTrophy size={14} />
 						<span>{totalPoints}</span> pts earned
 					</div>
+					<button
+						className='summary-chip reward-btn'
+						disabled={screenshots.filter((s) => s.status === 'pending').length === 0}
+						onClick={() => {
+							setActionModal({ screenshot: null, action: 'rewardAll' })
+							setPointsInput('')
+						}}
+					>
+						Reward Points
+					</button>
 				</div>
 			</div>
 
@@ -299,10 +318,12 @@ export default function UserScreenshotsPage() {
 							{actionModal.action === 'accept' ? '✅ Accept Screenshot' : '❌ Reject Screenshot'}
 						</h2>
 
-						{actionModal.action === 'accept' ? (
+						{actionModal.action === 'accept' || actionModal.action === 'rewardAll' ? (
 							<>
 								<p className='action-modal-desc'>
-									How many points would you like to award for this screenshot?
+									{actionModal.action === 'accept'
+										? 'How many points would you like to award for this screenshot?'
+										: 'How many points would you like to award to ALL pending screenshots?'}
 								</p>
 								<div className='action-modal-points-row'>
 									<BiTrophy size={20} color='#f59e0b' />
@@ -340,6 +361,8 @@ export default function UserScreenshotsPage() {
 									? 'Processing...'
 									: actionModal.action === 'accept'
 									? 'Confirm & Award Points'
+									: actionModal.action === 'rewardAll'
+									? 'Confirm & Reward All'
 									: 'Confirm Reject'}
 							</button>
 						</div>
