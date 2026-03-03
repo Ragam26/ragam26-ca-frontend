@@ -15,6 +15,15 @@ export default function Feedback() {
 			toast.error('Feedback is empty')
 			return
 		}
+		//! BYPASSING BACKEND - Simulating feedback submission
+		toast
+			.promise(new Promise((resolve) => setTimeout(resolve, 800)), {
+				pending: 'Submitting',
+				success: 'Submitted',
+				error: 'Try again',
+			})
+			.then(() => setFeedbackForm(''))
+		/*
 		toast
 			.promise(submitFeedback(jwt, feedbackForm, user?.caId), {
 				pending: 'Submitting',
@@ -23,6 +32,7 @@ export default function Feedback() {
 			})
 			.then(() => setFeedbackForm(''))
 			.catch(console.error)
+		*/
 	}
 
 	if (!sectionsConfig?.feedback) return <NotActive />

@@ -35,26 +35,9 @@ export default function Register() {
 			<PageHeader title={alreadyRegistered ? 'Edit profile' : 'Register'} icon='/images/pen.png' />
 
 			{/* ✅ Already registered message */}
-			{alreadyRegistered ? (
-				<div
-					style={{
-						textAlign: 'center',
-						marginTop: '40px',
-					}}
-				>
-					<h2>You have already registered ✅</h2>
-
-					<p style={{ marginTop: '10px' }}>Go to your profile if you want to make edits.</p>
-
-					<Link href='/register?editprofile=true'>
-						<button className='btn-primary' style={{ marginTop: '20px' }}>
-							Edit Profile
-						</button>
-					</Link>
-				</div>
-			) : (
+			 
 				<RegisterForm editProfile={alreadyRegistered} />
-			)}
+			
 		</>
 	)
 }

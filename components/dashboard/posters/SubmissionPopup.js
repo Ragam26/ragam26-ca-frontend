@@ -38,6 +38,27 @@ export default function SubmissionPopup({ submission, onCancel, onSubmit }) {
 			toast.error('No images added')
 			return
 		}
+
+		// //! BYPASSING BACKEND - Simulating poster submission
+		// setUploading(true)
+		// const interval = setInterval(() => {
+		// 	setPercent((prev) => {
+		// 		if (prev >= 100) {
+		// 			clearInterval(interval)
+		// 			return 100
+		// 		}
+		// 		return prev + 10
+		// 	})
+		// }, 100)
+
+		// setTimeout(() => {
+		// 	clearInterval(interval)
+		// 	setUploading(false)
+		// 	toast.success('Submitted')
+		// 	onSubmit()
+		// }, 1200)
+
+		
 		toast
 			.promise(
 				submitPoster(
@@ -62,6 +83,7 @@ export default function SubmissionPopup({ submission, onCancel, onSubmit }) {
 			)
 			.then(onSubmit)
 			.catch(console.error)
+		
 	}
 
 	return (

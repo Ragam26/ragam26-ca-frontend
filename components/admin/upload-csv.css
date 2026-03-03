@@ -1,0 +1,174 @@
+/* =============================================
+   UPLOAD PAGE
+   ============================================= */
+
+.admin-upload-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 40px;
+}
+
+.admin-upload-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  padding: 40px 32px;
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+  border: 1px solid #eef0ff;
+}
+
+.admin-upload-icon-wrapper {
+  width: 80px;
+  height: 80px;
+  background: #f0f0ff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+}
+
+.admin-upload-icon {
+  color: #4945ff;
+}
+
+.admin-upload-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.admin-upload-description {
+  color: #666;
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 32px;
+}
+
+.admin-upload-btn {
+  display: inline-block;
+  background: #4945ff;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.2s;
+  border: none;
+}
+
+.admin-upload-btn:hover {
+  background: #3b38d3;
+}
+
+.gateway-btn {
+  margin-bottom: 24px;
+}
+
+.admin-selected-files {
+  margin-top: 32px;
+  text-align: left;
+  padding-top: 24px;
+  border-top: 1px solid #eee;
+}
+
+.admin-selected-files h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 16px;
+}
+
+.admin-file-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px 0;
+}
+
+.admin-file-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: #f8f8fa;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  font-size: 13px;
+}
+
+.admin-file-name {
+  flex: 1;
+  color: #444;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.admin-remove-file {
+  background: none;
+  border: none;
+  color: #999;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: 4px;
+  transition: color 0.2s, background 0.2s;
+}
+
+.admin-remove-file:hover {
+  color: #dc2626;
+  background: #fee2e2;
+}
+
+.admin-primary-btn {
+  width: 100%;
+  background: #4945ff;
+  color: white;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  border: none;
+  transition: opacity 0.2s;
+}
+
+.admin-primary-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.admin-success-message {
+  margin-top: 20px;
+  padding: 12px;
+  background: #e6f4ea;
+  color: #1b7d3e;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.admin-error-message {
+  margin-top: 20px;
+  padding: 12px;
+  background: #fdf2f2;
+  color: #dc2626;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+}

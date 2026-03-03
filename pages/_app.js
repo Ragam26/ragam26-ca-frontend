@@ -25,7 +25,10 @@ import 'components/dashboard/dashboard.css'
 import 'components/dashboard/side-nav.css'
 import 'components/dashboard/referrals.css'
 import 'components/dashboard/posters.css'
+import 'components/dashboard/whatsapp.css'
+import 'components/admin/sidebar.css'
 import 'components/admin/admin.css'
+import 'components/admin/upload-csv.css'
 
 import 'lib/firebase'
 

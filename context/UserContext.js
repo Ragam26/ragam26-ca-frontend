@@ -13,36 +13,20 @@ export default function UserContextWrapper({ children }) {
 	const [user, setUser] = useState(null)
 	const [jwt, setJwt] = useState(null)
 	const [isLoggedIn, setIsLoggedIn] = useState(false)
-	const [sectionsConfig, setSectionsConfig] = useState({
-		posters: false,
-		referrals: false,
-		feedback: false,
-		whatsapp: false,
-		leaderboard: true,
-		regOpen: true,
-		whatsappLink: '',
-	})
 
 	useEffect(() => {
 		let jwt = localStorage.getItem('jwt')
 		if (jwt) setAuthenticatedUser(jwt)
 	}, [])
 
-	// useEffect(() => {
-	// 	;(async () => {
-	// 		const { data } = await axios.get('/api/config')
-	// 		let temp = data.data.attributes
-	// 		setSectionsConfig({
-	// 			feedback: temp.feedback,
-	// 			posters: temp.posters,
-	// 			referrals: temp.referrals,
-	// 			whatsapp: temp.joinWhatsappGroup,
-	// 			leaderboard: temp.leaderboard,
-	// 			regOpen: temp.regOpen,
-	// 			whatsappLink: temp.whatsapp_link,
-	// 		})
-	// 	})()
-	// }, [])
+	const [sectionsConfig, setSectionsConfig] = useState({
+		feedback: false,
+		posters: false,
+		referrals: true,
+		whatsapp: true,
+		leaderboard: true,
+		regOpen: true,
+		whatsappLink: 'https://chat.whatsapp.com/C0FA6SNtbYY2PQ9lvgsWsY?mode=hq2tsha'});
 
 	const setAuthenticatedUser = async (jwt) => {
 		try {
@@ -58,12 +42,18 @@ export default function UserContextWrapper({ children }) {
 					withCredentials: true,
 				}
 			)
+			console.log('Auth Verify Response Data:', data);
 
 			let currentUser = {
 				name: data.user.name,
 				email: data.user.email,
 				role: data.user.role,
-				imageUrl: '/images/avatar.jpeg',
+				imageUrl: data.user.imageUrl || '/images/avatar.jpeg',
+				caId: data.user.caId ?? data.user.id,
+				refCode: data.user.refCode ?? data.user.referralCode,
+				points: data.user.points ?? 0,
+				phoneNo: data.user.phoneNo,
+				is_profile_completed: data.user.isProfileComplete || false,
 			}
 			localStorage.setItem('jwt', jwt)
 			setUser(currentUser)
@@ -90,8 +80,8 @@ export default function UserContextWrapper({ children }) {
 	function getUser() {
 		return new Promise(async (resolve, reject) => {
 			try {
-				let jwt = localStorage.getItem('jwt')
-				if (jwt) resolve(setAuthenticatedUser(jwt))
+				const storedJwt = localStorage.getItem('jwt')
+				if (storedJwt) resolve(await setAuthenticatedUser(storedJwt))
 				else resolve(null)
 			} catch (err) {
 				reject(err)

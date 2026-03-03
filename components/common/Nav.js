@@ -32,6 +32,13 @@ export default function Nav() {
 							Home
 						</Link>
 					</li>
+					{isLoggedIn && (
+						<li>
+							<Link href='/dashboard' className={styles['nav-text']}>
+								Dashboard
+							</Link>
+						</li>
+					)}
 					<li>
 						<Link href='/leaderboard' className={styles['nav-text']}>
 							Leaderboard

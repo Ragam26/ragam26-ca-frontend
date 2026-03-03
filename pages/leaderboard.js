@@ -15,9 +15,6 @@ export default function Leaderboard() {
 	useEffect(() => {
 		fetchLeaderboard().then(setLeaderboard).catch(console.error)
 	}, [])
-	useEffect(() => {
-		console.log('leaderboard', leaderboard)
-	}, [leaderboard])
 
 	return (
 		<>
