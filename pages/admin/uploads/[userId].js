@@ -315,7 +315,11 @@ export default function UserScreenshotsPage() {
 				>
 					<div className='action-modal' onClick={(e) => e.stopPropagation()}>
 						<h2 className='action-modal-title'>
-							{actionModal.action === 'accept' ? '✅ Accept Screenshot' : '❌ Reject Screenshot'}
+							{actionModal.action === 'accept'
+								? '✅ Accept Screenshot'
+								: actionModal.action === 'reject'
+								? '❌ Reject Screenshot'
+								: '🏆 Reward All Pending Screenshots'}
 						</h2>
 
 						{actionModal.action === 'accept' || actionModal.action === 'rewardAll' ? (
