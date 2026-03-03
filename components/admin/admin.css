@@ -747,6 +747,18 @@ body:has(.admin-layout) {
 	border: 1px solid #fde68a;
 }
 
+.summary-chip.reward-btn {
+	background: #16a34a;
+	color: #fff;
+	border: none;
+	cursor: pointer;
+}
+
+.reward-btn:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
 .screenshots-filters {
 	display: flex;
 	gap: 20px;
