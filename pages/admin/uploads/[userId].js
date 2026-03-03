@@ -73,9 +73,12 @@ export default function UserScreenshotsPage() {
 			const data = await fetchUploads(jwt, { username })
 			const uploads = data || []
 			if (uploads.length > 0) {
-				setUserInfo({ name: uploads[0].user?.name || username })
+				setUserInfo({
+					name: uploads[0].user?.name || username,
+					points: uploads[0].user?.points || 0,
+				})
 			} else {
-				setUserInfo({ name: username })
+				setUserInfo({ name: username, points: 0 })
 			}
 			const mapped = uploads.map((upload) => ({
 				id: upload.uploadId,
@@ -139,9 +142,7 @@ export default function UserScreenshotsPage() {
 		return matchTag && matchStatus
 	})
 
-	const totalPoints = screenshots
-		.filter((s) => s.status === 'accepted')
-		.reduce((sum, s) => sum + (s.points || 0), 0)
+	const totalPoints = userInfo?.points || 0
 
 	function formatDate(dateStr) {
 		if (!dateStr) return '--'
