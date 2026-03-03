@@ -25,6 +25,12 @@ export default function AdminOverview() {
 		)
 	})
 
+	const sortedUsers = [...filteredUsers].sort((a, b) => {
+		const pointsA = a.points ?? 0
+		const pointsB = b.points ?? 0
+		return pointsB - pointsA // highest points first
+	})
+
 	useEffect(() => {
 		if (!jwt) return
 		fetchUsers()
@@ -150,8 +156,8 @@ export default function AdminOverview() {
 						</tr>
 					</thead>
 					<tbody>
-						{filteredUsers.length > 0 ? (
-							filteredUsers.map((user, index) => (
+						{sortedUsers.length > 0 ? (
+							sortedUsers.map((user, index) => (
 								<tr key={user.userId || index}>
 									<td>{index + 1}</td>
 									<td className='name-cell'>{user.name || '--'}</td>
