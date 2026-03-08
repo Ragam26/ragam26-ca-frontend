@@ -14,11 +14,11 @@ export default function Referals() {
 	const [referrals, setReferrals] = useState([])
 
 	useEffect(() => {
-		console.log('Referrals useEffect triggered', {
-			regOpen: sectionsConfig?.referrals,
-			phoneNo: user?.phoneNo,
-			user: user,
-		})
+		// console.log('Referrals useEffect triggered', {
+		// 	regOpen: sectionsConfig?.referrals,
+		// 	phoneNo: user?.phoneNo,
+		// 	user: user,
+		// })
 		if (!sectionsConfig?.referrals || !user?.phoneNo) return
 
 		fetchReferrals(user.jwt || localStorage.getItem('jwt'), user?.phoneNo)

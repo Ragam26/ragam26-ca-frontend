@@ -42,7 +42,7 @@ export default function UserContextWrapper({ children }) {
 					withCredentials: true,
 				}
 			)
-			console.log('Auth Verify Response Data:', data);
+			// console.log('Auth Verify Response Data:', data);
 
 			let currentUser = {
 				name: data.user.name,

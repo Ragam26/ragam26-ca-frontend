@@ -16,10 +16,9 @@ export default function Workshops() {
 						</p>
 						<h4>Commission slabs:</h4>
 						<ul>
-							<li>• 1–15 registrations: 5% commission per registration</li>
-							<li>• 16–30 registrations: 10% commission per registration</li>
-							<li>• 31–45 registrations: 15% commission per registration</li>
-							<li>• 46 registrations onwards: 20% commission per registration</li>
+							<li>• 1–20 registrations: 5% commission per registration</li>
+							<li>• 21–50 registrations: 10% commission per registration</li>
+							<li>• 51 registrations: 15% commission per registration</li>
 						</ul>
 						<p className='reward-rules-note'>
 							(Each percentage applies only to registrations within that slab)
