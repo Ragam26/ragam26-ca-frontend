@@ -26,7 +26,8 @@ export default function UserContextWrapper({ children }) {
 		whatsapp: true,
 		leaderboard: true,
 		regOpen: true,
-		whatsappLink: 'https://chat.whatsapp.com/C0FA6SNtbYY2PQ9lvgsWsY?mode=hq2tsha'});
+		whatsappLink: 'https://chat.whatsapp.com/C0FA6SNtbYY2PQ9lvgsWsY?mode=hq2tsha',
+	})
 
 	const setAuthenticatedUser = async (jwt) => {
 		try {
@@ -42,7 +43,6 @@ export default function UserContextWrapper({ children }) {
 					withCredentials: true,
 				}
 			)
-			// console.log('Auth Verify Response Data:', data);
 
 			let currentUser = {
 				name: data.user.name,

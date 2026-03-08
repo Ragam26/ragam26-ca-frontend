@@ -73,9 +73,12 @@ export default function UserScreenshotsPage() {
 			const data = await fetchUploads(jwt, { username })
 			const uploads = data || []
 			if (uploads.length > 0) {
-				setUserInfo({ name: uploads[0].user?.name || username })
+				setUserInfo({
+					name: uploads[0].user?.name || username,
+					points: uploads[0].user?.points || 0,
+				})
 			} else {
-				setUserInfo({ name: username })
+				setUserInfo({ name: username, points: 0 })
 			}
 			const mapped = uploads.map((upload) => ({
 				id: upload.uploadId,
@@ -108,7 +111,7 @@ export default function UserScreenshotsPage() {
 		const { screenshot, action } = actionModal
 
 		if (
-			action === 'accept' &&
+			(action === 'accept' || action === 'rewardAll') &&
 			(!pointsInput || isNaN(Number(pointsInput)) || Number(pointsInput) < 0)
 		) {
 			alert('Please enter a valid number of points.')
@@ -117,12 +120,35 @@ export default function UserScreenshotsPage() {
 
 		setActionLoading(true)
 		try {
-			await updateUploadStatus(
-				jwt,
-				screenshot.id,
-				action === 'accept' ? 'approved' : 'rejected',
-				action === 'accept' ? Number(pointsInput) : undefined
-			)
+			if (action === 'rewardAll') {
+				const pendingScreenshots = screenshots.filter((s) => s.status === 'pending')
+				const totalReward = Number(pointsInput)
+				const count = pendingScreenshots.length
+				if (count === 0) return
+
+				const pointsPerScreenshot = Math.floor(totalReward / count)
+				let remainder = totalReward % count
+
+				await Promise.all(
+					pendingScreenshots.map((s) => {
+						let pointsToGive = pointsPerScreenshot
+
+						if (remainder > 0) {
+							pointsToGive += 1
+							remainder--
+						}
+
+						return updateUploadStatus(jwt, s.id, 'approved', pointsToGive)
+					})
+				)
+			} else {
+				await updateUploadStatus(
+					jwt,
+					screenshot.id,
+					action === 'accept' ? 'approved' : 'rejected',
+					action === 'accept' ? Number(pointsInput) : undefined
+				)
+			}
 			await fetchScreenshots()
 		} catch (err) {
 			console.error('Action failed:', err)
@@ -139,9 +165,7 @@ export default function UserScreenshotsPage() {
 		return matchTag && matchStatus
 	})
 
-	const totalPoints = screenshots
-		.filter((s) => s.status === 'accepted')
-		.reduce((sum, s) => sum + (s.points || 0), 0)
+	const totalPoints = userInfo?.points || 0
 
 	function formatDate(dateStr) {
 		if (!dateStr) return '--'
@@ -197,6 +221,16 @@ export default function UserScreenshotsPage() {
 						<BiTrophy size={14} />
 						<span>{totalPoints}</span> pts earned
 					</div>
+					<button
+						className='summary-chip reward-btn'
+						disabled={screenshots.filter((s) => s.status === 'pending').length === 0}
+						onClick={() => {
+							setActionModal({ screenshot: null, action: 'rewardAll' })
+							setPointsInput('')
+						}}
+					>
+						Reward Points
+					</button>
 				</div>
 			</div>
 
@@ -295,13 +329,19 @@ export default function UserScreenshotsPage() {
 				>
 					<div className='action-modal' onClick={(e) => e.stopPropagation()}>
 						<h2 className='action-modal-title'>
-							{actionModal.action === 'accept' ? '✅ Accept Screenshot' : '❌ Reject Screenshot'}
+							{actionModal.action === 'accept'
+								? '✅ Accept Screenshot'
+								: actionModal.action === 'reject'
+								? '❌ Reject Screenshot'
+								: '🏆 Reward All Pending Screenshots'}
 						</h2>
 
-						{actionModal.action === 'accept' ? (
+						{actionModal.action === 'accept' || actionModal.action === 'rewardAll' ? (
 							<>
 								<p className='action-modal-desc'>
-									How many points would you like to award for this screenshot?
+									{actionModal.action === 'accept'
+										? 'How many points would you like to award for this screenshot?'
+										: 'How many points would you like to award to ALL pending screenshots?'}
 								</p>
 								<div className='action-modal-points-row'>
 									<BiTrophy size={20} color='#f59e0b' />
@@ -339,6 +379,8 @@ export default function UserScreenshotsPage() {
 									? 'Processing...'
 									: actionModal.action === 'accept'
 									? 'Confirm & Award Points'
+									: actionModal.action === 'rewardAll'
+									? 'Confirm & Reward All'
 									: 'Confirm Reject'}
 							</button>
 						</div>
