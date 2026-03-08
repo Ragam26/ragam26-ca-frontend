@@ -6,6 +6,7 @@ import { FaWhatsapp, FaInstagram } from 'react-icons/fa'
 import { MdSms } from 'react-icons/md'
 import { fetchUploads, updateUploadStatus, buildImageUrl } from 'lib/req/uploads'
 
+//Fayis ki jai
 function TagIcon({ tag }) {
 	if (tag === 'whatsapp')
 		return (
