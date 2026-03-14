@@ -82,7 +82,15 @@ export default function AdminLayout({ children }) {
 						Uploads
 					</Link>
 
-					{/* NEW LINK INTEGRATED */}
+					<Link
+						href='/admin/posters'
+						className={`admin-nav-item ${router.pathname === '/admin/posters' ? 'active' : ''}`}
+						onClick={closeSidebar}
+					>
+						<BiImageAlt size={18} />
+						Posters
+					</Link>
+
 					<Link
 						href='/admin/referrals'
 						className={`admin-nav-item ${router.pathname === '/admin/referrals' ? 'active' : ''}`}

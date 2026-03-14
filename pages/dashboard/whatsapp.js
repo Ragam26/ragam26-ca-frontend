@@ -60,7 +60,7 @@ export default function Whatsapp() {
 		setIsSubmitting(true)
 		setUploadProgress(0)
 
-		submitUpload(jwt, selectedFiles, platform, (progress) => {
+		submitUpload(jwt, selectedFiles, platform, null, (progress) => {
 			setUploadProgress(progress)
 		})
 			.then((result) => {

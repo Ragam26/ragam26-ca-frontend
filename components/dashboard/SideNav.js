@@ -16,7 +16,10 @@ export default function SideNav({ userDb, points, onClose }) {
 				<IoMdClose className='dashboard-menu-icon' onClick={onClose} />
 			</div>
 			<div className='user-wrapper'>
-				<div className='user-avatar' style={{ backgroundImage: `url(${user?.imageUrl})` }}></div>
+				<div
+					className='user-avatar'
+					style={{ backgroundImage: `url(${user?.imageUrl || '/images/avatar.jpeg'})` }}
+				></div>
 				<h3 className='user-name'>{user?.name || '--'}</h3>
 				<span className='user-email'>{user?.email}</span>
 				<p className='user-points'>
