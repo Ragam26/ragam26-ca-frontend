@@ -21,7 +21,7 @@ export default function UserContextWrapper({ children }) {
 
 	const [sectionsConfig, setSectionsConfig] = useState({
 		feedback: false,
-		posters: false,
+		posters: true,
 		referrals: true,
 		whatsapp: true,
 		leaderboard: true,

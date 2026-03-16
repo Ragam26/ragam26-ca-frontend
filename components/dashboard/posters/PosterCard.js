@@ -52,9 +52,6 @@ export default function PosterCard({
 					{generateDescription(writeup, registerLink, refCode)}
 				</p>
 				<div className='poster-card-buttons-wrapper'>
-					<button className='btn-secondary' onClick={onSubmit}>
-						Submit
-					</button>
 					<button className='btn-outline' onClick={handleDownload}>
 						Download
 					</button>

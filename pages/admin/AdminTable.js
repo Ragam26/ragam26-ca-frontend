@@ -85,6 +85,7 @@ export default function AdminTable({ title, dataKey, csvName }) {
 			'GPay No.',
 			'College',
 			'District',
+			'Referrals Yet To Pay', 
 			'Referral Code',
 			'Registered On',
 		]
@@ -96,6 +97,7 @@ export default function AdminTable({ title, dataKey, csvName }) {
 			user.gPayNumber || '--',
 			user.collegeName || '--',
 			user.district || '--',
+			user._count.referrals || 0,
 			user.phoneNo || '--',
 			formatDate(user.updatedAt),
 		])
@@ -164,6 +166,7 @@ export default function AdminTable({ title, dataKey, csvName }) {
 							<th>College</th>
 							<th>District</th>
 							<th>Referral Code</th>
+							<th>Referrals Yet To Pay</th>
 							<th>Registered On</th>
 							<th>&nbsp;</th>
 						</tr>
@@ -179,7 +182,8 @@ export default function AdminTable({ title, dataKey, csvName }) {
 									<td>{user.gPayNumber || '--'}</td>
 									<td>{user.collegeName || '--'}</td>
 									<td>{user.district || '--'}</td>
-									<td>{user.referralCode || '--'}</td>
+									<td>{user.phoneNo || '--'}</td>
+									<td>{user._count.referrals || 0}</td>
 									<td>{formatDate(user.updatedAt)}</td>
 									<td>
 										<button
