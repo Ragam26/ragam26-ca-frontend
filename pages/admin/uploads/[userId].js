@@ -113,7 +113,7 @@ export default function UserScreenshotsPage() {
 
 		if (
 			(action === 'accept' || action === 'rewardAll') &&
-			(!pointsInput || isNaN(Number(pointsInput)) || Number(pointsInput) < 0)
+			(!pointsInput || isNaN(Number(pointsInput)))
 		) {
 			alert('Please enter a valid number of points.')
 			return
