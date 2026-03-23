@@ -7,6 +7,7 @@ import { MdSms } from 'react-icons/md'
 import { fetchUploads, updateUploadStatus, buildImageUrl } from 'lib/req/uploads'
 
 //Fayis ki jai
+//damn
 function TagIcon({ tag }) {
 	if (tag === 'whatsapp')
 		return (
