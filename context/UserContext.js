@@ -22,8 +22,8 @@ export default function UserContextWrapper({ children }) {
 	const [sectionsConfig, setSectionsConfig] = useState({
 		feedback: false,
 		posters: true,
-		referrals: true,
-		whatsapp: true,
+		referrals: false,
+		whatsapp: false,
 		leaderboard: true,
 		regOpen: true,
 		whatsappLink: 'https://chat.whatsapp.com/C0FA6SNtbYY2PQ9lvgsWsY?mode=hq2tsha',
